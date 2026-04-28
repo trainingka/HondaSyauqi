@@ -33,16 +33,22 @@
                 <span class="text-honda-red text-2xl font-black italic tracking-tighter">HONDA</span>
             </div>
             <div class="hidden lg:flex gap-6 text-sm font-medium">
-                <a href="#" class="hover:text-honda-red transition">Utama</a>
-                <a href="#model" class="hover:text-honda-red transition">Model</a>
-                <a href="#promosi" class="hover:text-honda-red transition">Promosi</a>
-                <a href="#kalkulator" class="hover:text-honda-red transition">Kalkulator</a>
-                <a href="#tentang" class="hover:text-honda-red transition">Tentang Saya</a>
+                <a href="#" class="hover:text-honda-red transition" data-i18n="nav_home">Utama</a>
+                <a href="#model" class="hover:text-honda-red transition" data-i18n="nav_model">Model</a>
+                <a href="#promosi" class="hover:text-honda-red transition" data-i18n="nav_promo">Promosi</a>
+                <a href="#kalkulator" class="hover:text-honda-red transition" data-i18n="nav_calculator">Kalkulator</a>
+                <a href="#tentang" class="hover:text-honda-red transition" data-i18n="nav_about">Tentang Saya</a>
             </div>
-            <a href="#contact" class="bg-honda-red hover:bg-red-700 text-white px-5 py-2 rounded text-sm font-bold flex items-center gap-2 transition">
-                <span class="material-symbols-outlined text-sm">chat</span>
-                WhatsApp Saya
-            </a>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleLang()" class="flex items-center gap-1 px-3 py-2 rounded border border-gray-600 hover:border-white text-sm font-medium transition">
+                    <span class="material-symbols-outlined text-sm">translate</span>
+                    <span id="lang-label">EN</span>
+                </button>
+                <a href="#contact" class="bg-honda-red hover:bg-red-700 text-white px-5 py-2 rounded text-sm font-bold flex items-center gap-2 transition">
+                    <span class="material-symbols-outlined text-sm">chat</span>
+                    <span data-i18n="whatsapp_btn">WhatsApp Saya</span>
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -50,21 +56,21 @@
         <div class="max-w-[1440px] mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div class="space-y-6">
                 <div class="inline-block border border-gray-700 text-xs font-bold tracking-widest px-3 py-1 rounded text-gray-300 uppercase">
-                    Penasihat Jualan Honda Sah
+                    <span data-i18n="hero_badge">Penasihat Jualan Honda Sah</span>
                 </div>
                 <h1 class="text-5xl lg:text-6xl font-black leading-tight">
-                    Hai, saya <span class="text-honda-red">Syauqi Hafiz</span><br>
-                    Penasihat Jualan Honda Anda yang Dipercayai
+                    <span data-i18n="hero_greeting">Hai, saya</span> <span class="text-honda-red">Syauqi Hafiz</span><br>
+                    <span data-i18n="hero_title">Penasihat Jualan Honda Anda yang Dipercayai</span>
                 </h1>
-                <p class="text-gray-400 text-lg max-w-lg leading-relaxed">
+                <p class="text-gray-400 text-lg max-w-lg leading-relaxed" data-i18n="hero_desc">
                     Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
                     <button class="bg-honda-red hover:bg-red-700 text-white px-8 py-3 rounded-md font-bold flex items-center gap-2 transition">
-                        <span class="material-symbols-outlined">chat</span> WhatsApp Saya
+                        <span class="material-symbols-outlined">chat</span> <span data-i18n="whatsapp_btn">WhatsApp Saya</span>
                     </button>
                     <button class="bg-transparent border border-white hover:bg-white hover:text-black text-white px-8 py-3 rounded-md font-bold flex items-center gap-2 transition">
-                        <span class="material-symbols-outlined">call</span> Hubungi Saya
+                        <span class="material-symbols-outlined">call</span> <span data-i18n="call_btn">Hubungi Saya</span>
                     </button>
                 </div>
             </div>
@@ -80,29 +86,29 @@
         <div class="max-w-[1440px] mx-auto px-6">
             <div class="flex flex-col lg:flex-row gap-12 items-center">
                 <div class="lg:w-1/3 space-y-4">
-                    <h2 class="text-4xl font-black text-gray-900">Kenapa Pilih<br>Syauqi Hafiz?</h2>
-                    <p class="text-gray-600">Saya bukan sekadar jual kereta, saya bantu anda cari kereta Honda yang paling sesuai ikut gaya hidup dan bajet anda.</p>
+                    <h2 class="text-4xl font-black text-gray-900"><span data-i18n="about_title">Kenapa Pilih</span><br>Syauqi Hafiz?</h2>
+                    <p class="text-gray-600" data-i18n="about_desc">Saya bukan sekadar jual kereta, saya bantu anda cari kereta Honda yang paling sesuai ikut gaya hidup dan bajet anda.</p>
                 </div>
                 <div class="lg:w-2/3 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
                         <span class="material-symbols-outlined text-honda-red text-4xl mb-3">verified</span>
-                        <h3 class="font-bold text-gray-900 mb-2">Telus & Jujur</h3>
-                        <p class="text-sm text-gray-500">Tiada caj tersembunyi. Nasihat jelas dan jujur.</p>
+                        <h3 class="font-bold text-gray-900 mb-2" data-i18n="feature1_title">Telus & Jujur</h3>
+                        <p class="text-sm text-gray-500" data-i18n="feature1_desc">Tiada caj tersembunyi. Nasihat jelas dan jujur.</p>
                     </div>
                     <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
                         <span class="material-symbols-outlined text-honda-red text-4xl mb-3">speed</span>
-                        <h3 class="font-bold text-gray-900 mb-2">Cepat & Mudah</h3>
-                        <p class="text-sm text-gray-500">Respons pantas dan kelulusan lancar.</p>
+                        <h3 class="font-bold text-gray-900 mb-2" data-i18n="feature2_title">Cepat & Mudah</h3>
+                        <p class="text-sm text-gray-500" data-i18n="feature2_desc">Respons pantas dan kelulusan lancar.</p>
                     </div>
                     <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
                         <span class="material-symbols-outlined text-honda-red text-4xl mb-3">support_agent</span>
-                        <h3 class="font-bold text-gray-900 mb-2">Sokongan Penuh</h3>
-                        <p class="text-sm text-gray-500">Dari tempahan hingga serahan kereta.</p>
+                        <h3 class="font-bold text-gray-900 mb-2" data-i18n="feature3_title">Sokongan Penuh</h3>
+                        <p class="text-sm text-gray-500" data-i18n="feature3_desc">Dari tempahan hingga serahan kereta.</p>
                     </div>
                     <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
                         <span class="material-symbols-outlined text-honda-red text-4xl mb-3">local_offer</span>
-                        <h3 class="font-bold text-gray-900 mb-2">Tawaran Terbaik</h3>
-                        <p class="text-sm text-gray-500">Promosi terkini dan tawaran eksklusif.</p>
+                        <h3 class="font-bold text-gray-900 mb-2" data-i18n="feature4_title">Tawaran Terbaik</h3>
+                        <p class="text-sm text-gray-500" data-i18n="feature4_desc">Promosi terkini dan tawaran eksklusif.</p>
                     </div>
                 </div>
             </div>
@@ -111,49 +117,49 @@
 
     <section class="py-20 bg-gray-50 border-t border-gray-200" id="model">
         <div class="max-w-[1440px] mx-auto px-6 text-center">
-            <h2 class="text-4xl font-black text-gray-900 mb-12">Terokai Model <span class="text-honda-red">Honda</span></h2>
+            <h2 class="text-4xl font-black text-gray-900 mb-12"><span data-i18n="model_title">Terokai Model</span> <span class="text-honda-red">Honda</span></h2>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="h-24 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-xs text-gray-400">[Gambar City]</div>
                     <h3 class="font-bold text-lg">City</h3>
                     <p class="text-sm text-gray-500 mb-4">Dari RM 74,900</p>
-                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition">Lihat Butiran</button>
+                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition" data-i18n="view_details">Lihat Butiran</button>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="h-24 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-xs text-gray-400">[Gambar Civic]</div>
                     <h3 class="font-bold text-lg">Civic</h3>
                     <p class="text-sm text-gray-500 mb-4">Dari RM 135,900</p>
-                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition">Lihat Butiran</button>
+                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition" data-i18n="view_details">Lihat Butiran</button>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="h-24 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-xs text-gray-400">[Gambar HR-V]</div>
                     <h3 class="font-bold text-lg">HR-V</h3>
                     <p class="text-sm text-gray-500 mb-4">Dari RM 115,900</p>
-                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition">Lihat Butiran</button>
+                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition" data-i18n="view_details">Lihat Butiran</button>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="h-24 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-xs text-gray-400">[Gambar CR-V]</div>
                     <h3 class="font-bold text-lg">CR-V</h3>
                     <p class="text-sm text-gray-500 mb-4">Dari RM 159,900</p>
-                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition">Lihat Butiran</button>
+                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition" data-i18n="view_details">Lihat Butiran</button>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="h-24 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-xs text-gray-400">[Gambar Accord]</div>
                     <h3 class="font-bold text-lg">Accord</h3>
                     <p class="text-sm text-gray-500 mb-4">Dari RM 189,900</p>
-                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition">Lihat Butiran</button>
+                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition" data-i18n="view_details">Lihat Butiran</button>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="h-24 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-xs text-gray-400">[Gambar BR-V]</div>
                     <h3 class="font-bold text-lg">BR-V</h3>
                     <p class="text-sm text-gray-500 mb-4">Dari RM 90,900</p>
-                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition">Lihat Butiran</button>
+                    <button class="w-full text-xs font-bold border border-gray-300 py-2 rounded hover:bg-gray-50 transition" data-i18n="view_details">Lihat Butiran</button>
                 </div>
             </div>
             
             <div class="mt-10">
-                <button class="bg-honda-red text-white px-8 py-3 rounded text-sm font-bold hover:bg-red-700 transition">Lihat Semua Model</button>
+                <button class="bg-honda-red text-white px-8 py-3 rounded text-sm font-bold hover:bg-red-700 transition" data-i18n="view_all_models">Lihat Semua Model</button>
             </div>
         </div>
     </section>
@@ -163,14 +169,14 @@
             <div class="grid lg:grid-cols-2 gap-16">
                 
                 <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
-                    <h2 class="text-2xl font-black mb-6">Kalkulator Pinjaman</h2>
+                    <h2 class="text-2xl font-black mb-6" data-i18n="calc_title">Kalkulator Pinjaman</h2>
                     <div class="grid grid-cols-2 gap-4 mb-6">
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 mb-2">Harga Kereta (RM)</label>
+                            <label class="block text-xs font-bold text-gray-500 mb-2" data-i18n="calc_price">Harga Kereta (RM)</label>
                             <input type="text" value="100,000" class="w-full border border-gray-300 p-3 rounded bg-white font-medium" readonly>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 mb-2">Bayaran Muka (%)</label>
+                            <label class="block text-xs font-bold text-gray-500 mb-2" data-i18n="calc_downpayment">Bayaran Muka (%)</label>
                             <select class="w-full border border-gray-300 p-3 rounded bg-white font-medium">
                                 <option>10%</option>
                                 <option>0% (Full Loan)</option>
@@ -178,7 +184,7 @@
                         </div>
                     </div>
                     <div class="mb-8">
-                        <label class="block text-xs font-bold text-gray-500 mb-2">Tempoh Pinjaman</label>
+                        <label class="block text-xs font-bold text-gray-500 mb-2" data-i18n="calc_term">Tempoh Pinjaman</label>
                         <select class="w-full border border-gray-300 p-3 rounded bg-white font-medium">
                             <option>9 Tahun</option>
                             <option>7 Tahun</option>
@@ -187,15 +193,15 @@
                     
                     <div class="flex items-center justify-between pt-6 border-t border-gray-200">
                         <div>
-                            <div class="text-sm text-gray-500 font-medium">Anggaran Bayaran Bulanan</div>
-                            <div class="text-3xl font-black text-honda-red">RM 1,008<span class="text-sm text-gray-500 font-normal"> /bulan</span></div>
+                            <div class="text-sm text-gray-500 font-medium" data-i18n="calc_monthly">Anggaran Bayaran Bulanan</div>
+                            <div class="text-3xl font-black text-honda-red">RM 1,008<span class="text-sm text-gray-500 font-normal" data-i18n="per_month">/bulan</span></div>
                         </div>
-                        <button class="bg-honda-red text-white px-6 py-3 rounded font-bold hover:bg-red-700 transition">Kira Sekarang</button>
+                        <button class="bg-honda-red text-white px-6 py-3 rounded font-bold hover:bg-red-700 transition" data-i18n="calc_calculate">Kira Sekarang</button>
                     </div>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-black mb-10">Langkah Mudah Miliki Honda Anda</h2>
+                    <h2 class="text-2xl font-black mb-10" data-i18n="steps_title">Langkah Mudah Miliki Honda Anda</h2>
                     <div class="space-y-8 relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent">
                         
                         <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -203,8 +209,8 @@
                                 <span class="material-symbols-outlined">chat</span>
                             </div>
                             <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-4 rounded-xl border border-gray-100 bg-white shadow-sm">
-                                <h3 class="font-bold text-lg mb-1">1. Hubungi Saya</h3>
-                                <p class="text-sm text-gray-500">WhatsApp saya untuk dapatkan tawaran terbaik.</p>
+                                <h3 class="font-bold text-lg mb-1" data-i18n="step1_title">1. Hubungi Saya</h3>
+                                <p class="text-sm text-gray-500" data-i18n="step1_desc">WhatsApp saya untuk dapatkan tawaran terbaik.</p>
                             </div>
                         </div>
                         <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -212,8 +218,8 @@
                                 <span class="material-symbols-outlined">directions_car</span>
                             </div>
                             <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-4 rounded-xl border border-gray-100 bg-white shadow-sm">
-                                <h3 class="font-bold text-lg mb-1">2. Pilih Kereta</h3>
-                                <p class="text-sm text-gray-500">Pilih model idaman anda dan hantar dokumen.</p>
+                                <h3 class="font-bold text-lg mb-1" data-i18n="step2_title">2. Pilih Kereta</h3>
+                                <p class="text-sm text-gray-500" data-i18n="step2_desc">Pilih model idaman anda dan hantar dokumen.</p>
                             </div>
                         </div>
 
@@ -228,25 +234,25 @@
         <div class="max-w-[1440px] mx-auto px-6 grid md:grid-cols-4 gap-8 mb-12">
             <div class="col-span-1">
                 <span class="text-honda-red text-2xl font-black italic tracking-tighter block mb-4">HONDA</span>
-                <p class="text-sm text-gray-400">Penasihat Jualan Honda Sah. Berdedikasi memberikan perkhidmatan terbaik dan tawaran terhebat untuk anda.</p>
+                <p class="text-sm text-gray-400" data-i18n="footer_about">Penasihat Jualan Honda Sah. Berdedikasi memberikan perkhidmatan terbaik dan tawaran terhebat untuk anda.</p>
             </div>
             <div>
-                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm">Pautan Pantas</h4>
+                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm" data-i18n="footer_quicklinks">Pautan Pantas</h4>
                 <div class="flex flex-col space-y-2 text-sm text-gray-400">
-                    <a href="#" class="hover:text-white transition">Utama</a>
-                    <a href="#model" class="hover:text-white transition">Model</a>
-                    <a href="#promosi" class="hover:text-white transition">Promosi</a>
+                    <a href="#" class="hover:text-white transition" data-i18n="nav_home">Utama</a>
+                    <a href="#model" class="hover:text-white transition" data-i18n="nav_model">Model</a>
+                    <a href="#promosi" class="hover:text-white transition" data-i18n="nav_promo">Promosi</a>
                 </div>
             </div>
             <div>
-                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm">Maklumat</h4>
+                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm" data-i18n="footer_info">Maklumat</h4>
                 <div class="flex flex-col space-y-2 text-sm text-gray-400">
-                    <a href="#tentang" class="hover:text-white transition">Tentang Saya</a>
+                    <a href="#tentang" class="hover:text-white transition" data-i18n="nav_about">Tentang Saya</a>
                     <a href="#" class="hover:text-white transition">FAQ</a>
                 </div>
             </div>
             <div>
-                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm">Hubungi Saya</h4>
+                <h4 class="font-bold mb-4 uppercase tracking-wider text-sm" data-i18n="footer_contact">Hubungi Saya</h4>
                 <div class="flex flex-col space-y-3 text-sm text-gray-400">
                     <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span> +60 12-345 6789</div>
                     <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span> syauqi@honda.com.my</div>
@@ -255,10 +261,10 @@
             </div>
         </div>
         <div class="max-w-[1440px] mx-auto px-6 border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
-            <p>&copy; 2024 Syauqi Hafiz - Penasihat Jualan Honda Sah. Hak Cipta Terpelihara.</p>
+            <p>&copy; 2024 Syauqi Hafiz - <span data-i18n="footer_copyright">Penasihat Jualan Honda Sah. Hak Cipta Terpelihara.</span></p>
             <div class="flex gap-4 mt-4 md:mt-0">
-                <a href="#" class="hover:text-white transition">Terma & Syarat</a>
-                <a href="#" class="hover:text-white transition">Dasar Privasi</a>
+                <a href="#" class="hover:text-white transition" data-i18n="footer_tos">Terma & Syarat</a>
+                <a href="#" class="hover:text-white transition" data-i18n="footer_privacy">Dasar Privasi</a>
             </div>
         </div>
     </footer>
@@ -266,6 +272,123 @@
     <a href="https://wa.me/60123456789" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
     </a>
+
+    <script>
+        const translations = {
+            ms: {
+                nav_home: "Utama",
+                nav_model: "Model",
+                nav_promo: "Promosi",
+                nav_calculator: "Kalkulator",
+                nav_about: "Tentang Saya",
+                whatsapp_btn: "WhatsApp Saya",
+                hero_badge: "Penasihat Jualan Honda Sah",
+                hero_greeting: "Hai, saya",
+                hero_title: "Penasihat Jualan Honda Anda yang Dipercayai",
+                hero_desc: "Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.",
+                call_btn: "Hubungi Saya",
+                about_title: "Kenapa Pilih",
+                about_desc: "Saya bukan sekadar jual kereta, saya bantu anda cari kereta Honda yang paling sesuai ikut gaya hidup dan bajet anda.",
+                feature1_title: "Telus & Jujur",
+                feature1_desc: "Tiada caj tersembunyi. Nasihat jelas dan jujur.",
+                feature2_title: "Cepat & Mudah",
+                feature2_desc: "Respons pantas dan kelulusan lancar.",
+                feature3_title: "Sokongan Penuh",
+                feature3_desc: "Dari tempahan hingga serahan kereta.",
+                feature4_title: "Tawaran Terbaik",
+                feature4_desc: "Promosi terkini dan tawaran eksklusif.",
+                model_title: "Terokai Model",
+                view_details: "Lihat Butiran",
+                view_all_models: "Lihat Semua Model",
+                calc_title: "Kalkulator Pinjaman",
+                calc_price: "Harga Kereta (RM)",
+                calc_downpayment: "Bayaran Muka (%)",
+                calc_term: "Tempoh Pinjaman",
+                calc_monthly: "Anggaran Bayaran Bulanan",
+                per_month: "/bulan",
+                calc_calculate: "Kira Sekarang",
+                steps_title: "Langkah Mudah Miliki Honda Anda",
+                step1_title: "1. Hubungi Saya",
+                step1_desc: "WhatsApp saya untuk dapatkan tawaran terbaik.",
+                step2_title: "2. Pilih Kereta",
+                step2_desc: "Pilih model idaman anda dan hantar dokumen.",
+                footer_about: "Penasihat Jualan Honda Sah. Berdedikasi memberikan perkhidmatan terbaik dan tawaran terhebat untuk anda.",
+                footer_quicklinks: "Pautan Pantas",
+                footer_info: "Maklumat",
+                footer_contact: "Hubungi Saya",
+                footer_copyright: "Penasihat Jualan Honda Sah. Hak Cipta Terpelihara.",
+                footer_tos: "Terma & Syarat",
+                footer_privacy: "Dasar Privasi"
+            },
+            en: {
+                nav_home: "Home",
+                nav_model: "Models",
+                nav_promo: "Promotions",
+                nav_calculator: "Calculator",
+                nav_about: "About Me",
+                whatsapp_btn: "WhatsApp Me",
+                hero_badge: "Certified Honda Sales Advisor",
+                hero_greeting: "Hi, I'm",
+                hero_title: "Your Trusted Honda Sales Advisor",
+                hero_desc: "Get the best Honda deals with fast approval, easy process and full support from A to Z.",
+                call_btn: "Call Me",
+                about_title: "Why Choose",
+                about_desc: "I don't just sell cars - I help you find the Honda that fits your lifestyle and budget.",
+                feature1_title: "Transparent & Honest",
+                feature1_desc: "No hidden fees. Clear and honest advice.",
+                feature2_title: "Fast & Easy",
+                feature2_desc: "Quick response and smooth approval.",
+                feature3_title: "Full Support",
+                feature3_desc: "From booking to car delivery.",
+                feature4_title: "Best Deals",
+                feature4_desc: "Latest promotions and exclusive offers.",
+                model_title: "Explore Honda",
+                view_details: "View Details",
+                view_all_models: "View All Models",
+                calc_title: " Loan Calculator",
+                calc_price: "Car Price (RM)",
+                calc_downpayment: "Down Payment (%)",
+                calc_term: "Loan Tenure",
+                calc_monthly: "Estimated Monthly Payment",
+                per_month: "/month",
+                calc_calculate: "Calculate Now",
+                steps_title: "Easy Steps to Own Your Honda",
+                step1_title: "1. Contact Me",
+                step1_desc: "WhatsApp me for the best deals.",
+                step2_title: "2. Choose Car",
+                step2_desc: "Choose your dream car and submit documents.",
+                footer_about: "Certified Honda Sales Advisor. Dedicated to providing the best service and greatest deals for you.",
+                footer_quicklinks: "Quick Links",
+                footer_info: "Information",
+                footer_contact: "Contact Me",
+                footer_copyright: "Certified Honda Sales Advisor. All Rights Reserved.",
+                footer_tos: "Terms & Conditions",
+                footer_privacy: "Privacy Policy"
+            }
+        };
+
+        let currentLang = localStorage.getItem("lang") || "ms";
+
+        function toggleLang() {
+            currentLang = currentLang === "ms" ? "en" : "ms";
+            localStorage.setItem("lang", currentLang);
+            updateContent();
+        }
+
+        function updateContent() {
+            document.getElementById("lang-label").textContent = currentLang.toUpperCase();
+            document.documentElement.lang = currentLang;
+            
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+        }
+
+        updateContent();
+    </script>
 
 </body>
 </html>
