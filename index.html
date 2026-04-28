@@ -32,31 +32,50 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden">
 
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-[1440px] mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-honda text-2xl font-black italic tracking-tighter">HONDA</span>
-            </div>
-            <div class="hidden lg:flex gap-6 text-sm font-medium text-gray-700">
-                <a href="#models" class="hover:text-honda transition" data-i18n="nav_home">Utama</a>
-                <a href="#about" class="hover:text-honda transition" data-i18n="nav_about">Tentang Saya</a>
-                <a href="#calculator" class="hover:text-honda transition" data-i18n="nav_calculator">Kalkulator</a>
-                <a href="#compare" class="hover:text-honda transition" data-i18n="nav_compare">Banding Model</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <button onclick="toggleLang()" class="flex items-center gap-1 px-3 py-2 rounded border border-gray-300 hover:border-honda text-sm font-medium text-gray-700 hover:text-honda transition">
-                    <i class="fa-solid fa-globe"></i>
-                    <span id="lang-label">EN</span>
-                </button>
-                <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20I%20am%20interested%20in%20a%20Honda%20car." class="bg-honda hover:bg-red-700 text-white px-5 py-2 rounded text-sm font-bold flex items-center gap-2 transition">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <span data-i18n="whatsapp_btn">WhatsApp Saya</span>
-                </a>
+<header class="fixed w-full top-0 z-50 bg-zinc-950 border-b border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <i class="fa-solid fa-car-side text-honda text-3xl"></i>
+                    <div>
+                        <h1 class="font-bold text-xl leading-tight text-white">Syauqi Hafiz</h1>
+                        <p class="text-xs text-gray-400">Authorized Honda Advisor</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#models" class="text-gray-300 hover:text-white hover:font-bold transition" data-i18n="nav_home">Utama</a>
+                    <a href="#about" class="text-gray-300 hover:text-white hover:font-bold transition" data-i18n="nav_about">Tentang Saya</a>
+                    <a href="#calculator" class="text-gray-300 hover:text-white hover:font-bold transition" data-i18n="nav_calculator">Kalkulator</a>
+                    <a href="#compare" class="text-gray-300 hover:text-white hover:font-bold transition" data-i18n="nav_compare">Banding Model</a>
+                </nav>
+
+                <div class="hidden md:flex">
+                    <a href="#contact" class="bg-honda hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg shadow-red-500/20 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> <span data-i18n="whatsapp_btn">WhatsApp Saya</span>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <main id="models" class="relative min-h-[90vh] pt-32 pb-24 overflow-hidden flex items-center justify-center text-center">
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-gray-800 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#models" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-zinc-800 hover:text-white rounded-md">Utama</a>
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-zinc-800 hover:text-white rounded-md">Tentang Saya</a>
+                <a href="#calculator" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-zinc-800 hover:text-white rounded-md">Kira Ansuran</a>
+                <a href="#compare" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-zinc-800 hover:text-white rounded-md">Banding Model</a>
+                <a href="#contact" class="block mt-4 text-center bg-honda text-white px-3 py-3 rounded-md font-medium">WhatsApp Saya</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="models" class="relative min-h-[90vh] pt-32 pb-24 overflow-hidden flex items-center">
         <div class="absolute inset-0 w-full h-full z-0">
             <video autoplay loop muted playsinline class="w-full h-full object-cover">
                 <source src="image/herovideo1.mp4" type="video/mp4">
@@ -64,28 +83,30 @@
             <div class="absolute inset-0 bg-zinc-950/70 backdrop-blur-[2px] z-10"></div>
         </div>
 
-        <div class="relative z-20 max-w-5xl mx-auto px-6 space-y-10 mt-10">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-zinc-800/80 text-gray-100 rounded-full font-semibold text-xs border border-gray-600 tracking-widest uppercase shadow-lg">
-                <i class="fa-solid fa-award text-honda"></i>
-                <span data-i18n="hero_badge">Penasihat Jualan Honda Sah</span>
-            </div>
+        <div class="relative z-20 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-zinc-800/80 text-gray-100 rounded-full font-semibold text-xs border border-gray-600 tracking-widest uppercase shadow-lg">
+                    <i class="fa-solid fa-award text-honda"></i>
+                    <span data-i18n="hero_badge">Penasihat Jualan Honda Sah</span>
+                </div>
 
-            <h1 class="text-white text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight drop-shadow-lg">
-                <span data-i18n="hero_greeting">Hai, saya</span> <span class="text-honda">Syauqi Hafiz</span><br/>
-                <span data-i18n="hero_title">Penasihat Jualan Honda Anda yang Dipercayai</span>
-            </h1>
+                <h1 class="text-white text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight drop-shadow-lg text-left">
+                    <span data-i18n="hero_greeting">Hai, saya</span> <span class="text-honda">Syauqi Hafiz</span><br/>
+                    <span data-i18n="hero_title">Penasihat Jualan Honda Anda yang Dipercayai</span>
+                </h1>
 
-            <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed max-w-3xl mx-auto drop-shadow-md" data-i18n="hero_desc">
-                Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.
-            </p>
+                <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed max-w-2xl drop-shadow-md text-left" data-i18n="hero_desc">
+                    Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.
+                </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20saya%20berminat%20dengan%20kereta%20Honda." target="_blank" class="bg-[#25D366] hover:bg-[#20b858] text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-3 transition shadow-xl shadow-green-500/20 transform hover:scale-105">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> <span data-i18n="whatsapp_btn">WhatsApp Sekarang</span>
-                </a>
-                <a href="#about" class="bg-transparent border-2 border-white hover:bg-white hover:text-dark text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-3 transition shadow-xl">
-                    <i class="fa-solid fa-user"></i> Kenali Saya
-                </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-start pt-4">
+                    <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20saya%20berminat%20dengan%20kereta%20Honda." target="_blank" class="bg-[#25D366] hover:bg-[#20b858] text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-3 transition shadow-xl shadow-green-500/20 transform hover:scale-105 w-full sm:w-auto">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> <span data-i18n="whatsapp_btn">WhatsApp Sekarang</span>
+                    </a>
+                    <a href="#about" class="bg-transparent border-2 border-white hover:bg-white hover:text-zinc-900 text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-3 transition shadow-xl w-full sm:w-auto">
+                        <i class="fa-solid fa-user text-xl"></i> Kenali Saya
+                    </a>
+                </div>
             </div>
         </div>
     </main>
