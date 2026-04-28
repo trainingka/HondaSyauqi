@@ -32,23 +32,23 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden">
 
-    <nav class="bg-honda-darker text-white border-b border-gray-800 sticky top-0 z-50">
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-[1440px] mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <span class="text-honda-red text-2xl font-black italic tracking-tighter">HONDA</span>
+                <span class="text-honda text-2xl font-black italic tracking-tighter">HONDA</span>
             </div>
-            <div class="hidden lg:flex gap-6 text-sm font-medium">
-                <a href="#models" class="hover:text-honda-red transition" data-i18n="nav_home">Utama</a>
-                <a href="#about" class="hover:text-honda-red transition" data-i18n="nav_about">Tentang Saya</a>
-                <a href="#calculator" class="hover:text-honda-red transition" data-i18n="nav_calculator">Kalkulator</a>
-                <a href="#compare" class="hover:text-honda-red transition" data-i18n="nav_compare">Banding Model</a>
+            <div class="hidden lg:flex gap-6 text-sm font-medium text-gray-700">
+                <a href="#models" class="hover:text-honda transition" data-i18n="nav_home">Utama</a>
+                <a href="#about" class="hover:text-honda transition" data-i18n="nav_about">Tentang Saya</a>
+                <a href="#calculator" class="hover:text-honda transition" data-i18n="nav_calculator">Kalkulator</a>
+                <a href="#compare" class="hover:text-honda transition" data-i18n="nav_compare">Banding Model</a>
             </div>
             <div class="flex items-center gap-3">
-                <button onclick="toggleLang()" class="flex items-center gap-1 px-3 py-2 rounded border border-gray-600 hover:border-white text-sm font-medium transition">
+                <button onclick="toggleLang()" class="flex items-center gap-1 px-3 py-2 rounded border border-gray-300 hover:border-honda text-sm font-medium text-gray-700 hover:text-honda transition">
                     <i class="fa-solid fa-globe"></i>
                     <span id="lang-label">EN</span>
                 </button>
-                <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20I%20am%20interested%20in%20a%20Honda%20car." class="bg-honda-red hover:bg-red-700 text-white px-5 py-2 rounded text-sm font-bold flex items-center gap-2 transition">
+                <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20I%20am%20interested%20in%20a%20Honda%20car." class="bg-honda hover:bg-red-700 text-white px-5 py-2 rounded text-sm font-bold flex items-center gap-2 transition">
                     <i class="fa-brands fa-whatsapp"></i>
                     <span data-i18n="whatsapp_btn">WhatsApp Saya</span>
                 </a>
@@ -56,35 +56,39 @@
         </div>
     </nav>
 
-    <section id="models" class="bg-honda-dark text-white relative pt-16 pb-24 overflow-hidden">
-        <div class="max-w-[1440px] mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <div class="inline-block border border-gray-700 text-xs font-bold tracking-widest px-3 py-1 rounded text-gray-300 uppercase">
-                    <span data-i18n="hero_badge">Penasihat Jualan Honda Sah</span>
-                </div>
-                <h1 class="text-5xl lg:text-6xl font-black leading-tight">
-                    <span data-i18n="hero_greeting">Hai, saya</span> <span class="text-honda-red">Syauqi Hafiz</span><br>
-                    <span data-i18n="hero_title">Penasihat Jualan Honda Anda yang Dipercayai</span>
-                </h1>
-                <p class="text-gray-400 text-lg max-w-lg leading-relaxed" data-i18n="hero_desc">
-                    Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20I%20am%20interested%20in%20a%20Honda%20car." class="bg-honda-red hover:bg-red-700 text-white px-8 py-3 rounded-md font-bold flex items-center gap-2 transition">
-                        <i class="fa-brands fa-whatsapp"></i> <span data-i18n="whatsapp_btn">WhatsApp Saya</span>
-                    </a>
-                    <a href="tel:+601123760114" class="bg-transparent border border-white hover:bg-white hover:text-black text-white px-8 py-3 rounded-md font-bold flex items-center gap-2 transition">
-                        <i class="fa-solid fa-phone"></i> <span data-i18n="call_btn">Hubungi Saya</span>
-                    </a>
-                </div>
+    <main id="models" class="relative min-h-[90vh] pt-32 pb-24 overflow-hidden flex items-center justify-center text-center">
+        <div class="absolute inset-0 w-full h-full z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                <source src="image/herovideo1.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-zinc-950/70 backdrop-blur-[2px] z-10"></div>
+        </div>
+
+        <div class="relative z-20 max-w-5xl mx-auto px-6 space-y-10 mt-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-zinc-800/80 text-gray-100 rounded-full font-semibold text-xs border border-gray-600 tracking-widest uppercase shadow-lg">
+                <i class="fa-solid fa-award text-honda"></i>
+                <span data-i18n="hero_badge">Penasihat Jualan Honda Sah</span>
             </div>
-            <div class="relative flex justify-center lg:justify-end">
-                <div class="bg-gray-800 w-full max-w-md h-[500px] rounded-xl flex items-center justify-center text-gray-500 border border-gray-700">
-                    [Gambar Syauqi & Kereta]
-                </div>
+
+            <h1 class="text-white text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight drop-shadow-lg">
+                <span data-i18n="hero_greeting">Hai, saya</span> <span class="text-honda">Syauqi Hafiz</span><br/>
+                <span data-i18n="hero_title">Penasihat Jualan Honda Anda yang Dipercayai</span>
+            </h1>
+
+            <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed max-w-3xl mx-auto drop-shadow-md" data-i18n="hero_desc">
+                Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+                <a href="https://wa.me/601123760114?text=Hi%20Syauqi,%20saya%20berminat%20dengan%20kereta%20Honda." target="_blank" class="bg-[#25D366] hover:bg-[#20b858] text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-3 transition shadow-xl shadow-green-500/20 transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> <span data-i18n="whatsapp_btn">WhatsApp Sekarang</span>
+                </a>
+                <a href="#about" class="bg-transparent border-2 border-white hover:bg-white hover:text-dark text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-3 transition shadow-xl">
+                    <i class="fa-solid fa-user"></i> Kenali Saya
+                </a>
             </div>
         </div>
-    </section>
+    </main>
 
     <section id="about" class="py-16 bg-gray-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -676,24 +680,22 @@
                 nav_calculator: "Kalkulator",
                 nav_about: "Tentang Saya",
                 nav_compare: "Banding Model",
-                whatsapp_btn: "WhatsApp Saya",
+                whatsapp_btn: "WhatsApp Sekarang",
                 hero_badge: "Penasihat Jualan Honda Sah",
                 hero_greeting: "Hai, saya",
                 hero_title: "Penasihat Jualan Honda Anda yang Dipercayai",
-                hero_desc: "Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z.",
-                call_btn: "Hubungi Saya"
+                hero_desc: "Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z."
             },
             en: {
                 nav_home: "Home",
                 nav_calculator: "Calculator",
                 nav_about: "About Me",
                 nav_compare: "Compare Models",
-                whatsapp_btn: "WhatsApp Me",
+                whatsapp_btn: "WhatsApp Now",
                 hero_badge: "Certified Honda Sales Advisor",
                 hero_greeting: "Hi, I'm",
                 hero_title: "Your Trusted Honda Sales Advisor",
-                hero_desc: "Get the best Honda deals with fast approval, easy process and full support from A to Z.",
-                call_btn: "Call Me"
+                hero_desc: "Get the best Honda deals with fast approval, easy process and full support from A to Z."
             }
         };
 
