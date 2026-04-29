@@ -102,6 +102,53 @@
         </div>
     </main>
 
+    <section id="showcase" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+                <a href="#calculator" class="bg-honda hover:bg-red-700 text-white px-8 py-3.5 rounded-full font-semibold text-lg transition shadow-lg shadow-red-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calculator"></i> Kira Bulanan
+                </a>
+                <a href="https://wa.me/601123760114" target="_blank" class="bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 px-8 py-3.5 rounded-full font-semibold text-lg transition shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-green-500"></i> WhatsApp Sekarang
+                </a>
+            </div>
+
+            <div class="relative w-full max-w-5xl mx-auto mt-8 flex flex-col items-center">
+                <div class="absolute inset-0 bg-gradient-to-tr from-gray-100 to-gray-50 rounded-[3rem] transform -rotate-2 scale-105 -z-10"></div>
+                
+                <div class="w-full relative py-8 px-4 flex flex-col md:flex-row items-center justify-center min-h-[300px] md:min-h-[400px]">
+                    
+                    <div class="absolute top-0 left-4 md:top-10 md:left-10 bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-gray-100 flex items-center gap-3 z-10 hidden sm:flex">
+                        <div class="bg-green-100 text-green-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">✓</div>
+                        <div class="text-left text-sm">
+                            <span class="block font-bold text-gray-900">Kelulusan Pantas</span>
+                            <span class="text-gray-500 text-xs">Strong Connection w/ Banks</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-4/5 flex justify-center relative z-0">
+                        <img id="interactive-hero-img" src="https://i.postimg.cc/7P2MpTKp/1.png" alt="Honda Car" class="w-full max-w-[800px] h-auto object-contain transition-opacity duration-300 opacity-100 drop-shadow-2xl">
+                    </div>
+
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-end gap-2 z-10">
+                        <div class="bg-white/90 backdrop-blur p-3 rounded-full shadow-xl border border-gray-100 flex flex-col gap-3" id="color-picker-container">
+                        </div>
+                        <span id="active-color-name" class="text-xs font-semibold text-gray-500 bg-white/80 px-2 py-1 rounded shadow-sm mr-2 hidden md:block mt-2">Stella Diamond Pearl</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 mt-4 bg-white p-1.5 rounded-full shadow-md border border-gray-100 overflow-x-auto w-full max-w-xl mx-auto justify-start sm:justify-center relative z-20">
+                    <button class="hero-model-tab active flex-1 px-6 py-2.5 rounded-full font-bold bg-gray-900 text-white shadow transition-all whitespace-nowrap" data-model="City">City</button>
+                    <button class="hero-model-tab flex-1 px-6 py-2.5 rounded-full font-bold text-gray-500 hover:text-gray-900 transition-all whitespace-nowrap" data-model="Civic">Civic</button>
+                    <button class="hero-model-tab flex-1 px-6 py-2.5 rounded-full font-bold text-gray-500 hover:text-gray-900 transition-all whitespace-nowrap" data-model="HR-V">HR-V</button>
+                    <button class="hero-model-tab flex-1 px-6 py-2.5 rounded-full font-bold text-gray-500 hover:text-gray-900 transition-all whitespace-nowrap" data-model="CR-V">CR-V</button>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 text-center w-full block md:hidden" id="mobile-color-name">Warna: Stella Diamond Pearl</p>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="py-16 bg-gray-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
@@ -732,6 +779,86 @@
         }
 
         updateContent();
+
+        const heroData = {
+            "City": {
+                colors: [
+                    { name: "Stella Diamond Pearl", hex: "#f4f4f4", img: "https://i.postimg.cc/7P2MpTKp/1.png" },
+                    { name: "Meteoroid Gray Metallic", hex: "#53565b", img: "https://i.postimg.cc/bYtHK26c/2.png" },
+                    { name: "Ignite Red Metallic", hex: "#9e1b22", img: "https://i.postimg.cc/c1nMV8DS/3.png" },
+                    { name: "Lunar Silver Metallic", hex: "#a6a9aa", img: "https://i.postimg.cc/YqBfkqPD/4.png" },
+                    { name: "Crystal Black Pearl", hex: "#111111", img: "https://i.postimg.cc/xjzyWbsS/5.png" }
+                ]
+            },
+            "Civic": {
+                colors: [
+                    { name: "Canyon River Blue Metallic", hex: "#1a3449", img: "https://i.postimg.cc/qv16SknW/7.png" },
+                    { name: "Platinum White Pearl", hex: "#f4f4f4", img: "https://i.postimg.cc/13vV29wR/8.png" },
+                    { name: "Meteoroid Gray Metallic", hex: "#53565b", img: "https://i.postimg.cc/dV5Zpqrs/9.png" },
+                    { name: "Crystal Black Pearl", hex: "#111111", img: "https://i.postimg.cc/rwfR38xF/10.png" },
+                    { name: "Ignite Red Mettalic", hex: "#9e1b22", img: "https://i.postimg.cc/QdfKwX1d/11.png" }
+                ]
+            },
+            "HR-V": { colors: [{ name: "Platinum White Pearl", hex: "#f4f4f4", img: "https://picsum.photos/seed/hrv-white/800/400" }] },
+            "CR-V": { colors: [{ name: "Platinum White Pearl", hex: "#f4f4f4", img: "https://picsum.photos/seed/crv-white/800/400" }] }
+        };
+
+        const heroImg = document.getElementById('interactive-hero-img');
+        const colorPickerContainer = document.getElementById('color-picker-container');
+        const activeColorNameDesk = document.getElementById('active-color-name');
+        const activeColorNameMob = document.getElementById('mobile-color-name');
+        const modelTabs = document.querySelectorAll('.hero-model-tab');
+
+        if(heroImg && colorPickerContainer) {
+            function loadHeroModel(modelName) {
+                const modelData = heroData[modelName];
+                if (!modelData) return;
+
+                colorPickerContainer.innerHTML = '';
+                modelData.colors.forEach((color, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = `w-6 h-6 rounded-full border-2 transition-transform transform hover:scale-110 focus:outline-none ${index === 0 ? 'border-gray-800 scale-110' : 'border-transparent shadow-sm'}`;
+                    dot.style.backgroundColor = color.hex;
+                    if(color.hex === "#f4f4f4" && index !== 0) dot.style.borderColor = "#e5e7eb";
+                    else if (color.hex === "#f4f4f4" && index === 0) dot.style.borderColor = "#1f2937";
+
+                    dot.addEventListener('click', () => {
+                        Array.from(colorPickerContainer.children).forEach(d => {
+                            d.classList.remove('border-gray-800', 'scale-110');
+                            d.classList.add('border-transparent');
+                            if(d.style.backgroundColor === "rgb(244, 244, 244)") d.style.borderColor = "#e5e7eb";
+                        });
+                        dot.classList.remove('border-transparent');
+                        dot.classList.add('border-gray-800', 'scale-110');
+                        if(color.hex === "#f4f4f4") dot.style.borderColor = "#1f2937";
+
+                        heroImg.style.opacity = 0;
+                        setTimeout(() => { heroImg.src = color.img; heroImg.style.opacity = 1; }, 200);
+                        activeColorNameDesk.textContent = color.name;
+                        activeColorNameMob.textContent = `Warna: ${color.name}`;
+                    });
+                    colorPickerContainer.appendChild(dot);
+                });
+
+                heroImg.src = modelData.colors[0].img;
+                activeColorNameDesk.textContent = modelData.colors[0].name;
+                activeColorNameMob.textContent = `Warna: ${modelData.colors[0].name}`;
+            }
+
+            modelTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    modelTabs.forEach(t => {
+                        t.classList.remove('bg-gray-900', 'text-white', 'shadow');
+                        t.classList.add('text-gray-500');
+                    });
+                    e.target.classList.remove('text-gray-500');
+                    e.target.classList.add('bg-gray-900', 'text-white', 'shadow');
+                    loadHeroModel(e.target.getAttribute('data-model'));
+                });
+            });
+
+            loadHeroModel("City");
+        }
     </script>
 
 </body>
