@@ -553,14 +553,6 @@
         const btn10 = document.getElementById('btn-10pct');
         const btnFull = document.getElementById('btn-full');
 
-        // Populate Model Dropdown on Load
-        Object.keys(carData).forEach(model => {
-            let option = document.createElement('option');
-            option.value = model;
-            option.textContent = `Honda ${model}`;
-            calcModel.appendChild(option);
-        });
-
         // Handle Model Change
         calcModel.addEventListener('change', (e) => {
             const modelName = e.target.value;
@@ -638,9 +630,18 @@
         const compModelA = document.getElementById('comp-model-a');
         const compModelB = document.getElementById('comp-model-b');
 
-        Object.keys(carData).forEach(model => {
-            compModelA.appendChild(new Option(`Honda ${model}`, model));
-            compModelB.appendChild(new Option(`Honda ${model}`, model));
+        const modelOptions = [
+            { key: "city-hb", name: "Honda City H/B" },
+            { key: "city-sedan", name: "Honda City Sedan" },
+            { key: "civic", name: "Honda Civic" },
+            { key: "hrv", name: "Honda HR-V" },
+            { key: "crv", name: "Honda CR-V" },
+            { key: "wrv", name: "Honda WR-V" }
+        ];
+        
+        modelOptions.forEach(model => {
+            compModelA.appendChild(new Option(model.name, model.key));
+            compModelB.appendChild(new Option(model.name, model.key));
         });
 
         function updateCompareCol(colId, modelName) {
