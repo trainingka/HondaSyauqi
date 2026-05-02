@@ -204,12 +204,11 @@
                 <p class="text-gray-500">Pilih model dan spesifikasi idaman anda untuk lihat bajet bulanan (Berdasarkan rate semasa).</p>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 p-6 md:p-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <div class="flex flex-col gap-4 w-full md:w-1/2">
-                        <label class="font-semibold text-gray-700 text-sm">1. Pilih Model Honda</label>
-                        <select id="calc-model" class="border border-gray-300 rounded-lg p-3 outline-none focus:border-red-600 transition-colors">
+            <div id="calculator-wrapper" class="bg-white rounded-3xl shadow-xl p-6 md:p-10 max-w-5xl mx-auto flex flex-col md:flex-row gap-10 border border-gray-100">
+                <div class="w-full md:w-1/2 flex flex-col gap-6">
+                    <div>
+                        <label class="font-bold text-gray-800 text-sm block mb-2">1. Pilih Model Honda</label>
+                        <select id="calc-model" class="w-full border border-gray-300 rounded-xl p-4 outline-none focus:border-red-600 transition-colors bg-white shadow-sm cursor-pointer">
                             <option value="" disabled selected>Pilih model...</option>
                             <option value="city-hb">Honda City H/B</option>
                             <option value="city-sedan">Honda City Sedan</option>
@@ -218,16 +217,34 @@
                             <option value="crv">Honda CR-V</option>
                             <option value="wrv">Honda WR-V</option>
                         </select>
-
-                        <label class="font-semibold text-gray-700 text-sm mt-2">2. Pilih Spesifikasi (Variant)</label>
-                        <select id="calc-variant" class="border border-gray-300 rounded-lg p-3 outline-none focus:border-red-600 transition-colors bg-gray-50" disabled>
+                    </div>
+                    <div>
+                        <label class="font-bold text-gray-800 text-sm block mb-2">2. Pilih Spesifikasi (Variant)</label>
+                        <select id="calc-variant" class="w-full border border-gray-300 rounded-xl p-4 outline-none focus:border-red-600 transition-colors bg-gray-100 cursor-not-allowed" disabled>
                             <option value="" disabled selected>Sila pilih model dahulu</option>
                         </select>
+                    </div>
+                    <div class="flex gap-2 bg-gray-100 p-1.5 rounded-xl mt-2">
+                        <button id="btn-depo-10" class="flex-1 py-3 text-sm font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all">Deposit 10%</button>
+                        <button id="btn-full-loan" class="flex-1 py-3 text-sm font-bold text-gray-500 hover:text-gray-900 transition-all">Full Loan (0% D/P)</button>
+                    </div>
+                </div>
 
-                        <div class="flex gap-2 mt-4 p-1 bg-gray-100 rounded-lg">
-                            <button id="btn-depo-10" class="flex-1 py-2 text-sm font-bold bg-white shadow-sm rounded-md text-gray-900 transition-all">Deposit 10%</button>
-                            <button id="btn-full-loan" class="flex-1 py-2 text-sm font-bold text-gray-500 hover:text-gray-900 transition-all">Full Loan (0% D/P)</button>
-                        </div>
+                <div class="w-full md:w-1/2 bg-gray-50 rounded-2xl p-6 md:p-8 border border-gray-100 flex flex-col justify-center relative overflow-hidden">
+                    <h3 class="text-xs md:text-sm font-bold text-gray-500 mb-2 uppercase tracking-wider">Anggaran Bulanan (9 Tahun)</h3>
+                    <div class="flex items-end gap-1 md:gap-2 mb-6 border-b border-gray-200 pb-6">
+                        <span class="text-xl md:text-2xl font-bold text-gray-900 mb-1 md:mb-2">RM</span>
+                        <span id="calc-monthly" class="text-5xl md:text-6xl font-black text-red-600 leading-none tracking-tighter">0</span>
+                        <span class="text-gray-500 font-medium mb-1 md:mb-2 ml-1">/bulan</span>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between items-center"><span class="text-gray-600">Harga OTR</span><span id="calc-otr" class="font-bold text-gray-900 text-base md:text-lg">RM 0</span></div>
+                        <div class="flex justify-between items-center"><span class="text-gray-600">Bayaran Muka (Deposit)</span><span id="calc-depo" class="font-bold text-gray-900 text-base md:text-lg">RM 0</span></div>
+                        <div class="flex justify-between items-center"><span class="text-gray-600">Jumlah Pinjaman (Loan)</span><span id="calc-loan" class="font-bold text-gray-900 text-base md:text-lg">RM 0</span></div>
+                    </div>
+                    <p class="text-[10px] md:text-xs text-gray-400 mt-6 leading-relaxed">*Kiraan hanyalah anggaran berdasarkan kadar rata (flat rate) 2.7%. Tertakluk pada terma & syarat kelulusan bank. Tambahan harga RM600 untuk warna Premium/Pearl.</p>
+                </div>
+            </div>
                     </div>
                             </div>
                         </div>
@@ -440,203 +457,6 @@
     </a>
 
 <script>
-        // ---------------------------------------------------------
-        // 1. DATA CONFIGURATION
-        // ---------------------------------------------------------
-        // ---------------------------------------------------------
-        // 3. LOAN CALCULATOR LOGIC
-        // ---------------------------------------------------------
-        const pricingData = {
-            "city-hb": [
-                { name: "1.5L S", price: 85900 }, { name: "1.5L E", price: 90900 }, { name: "1.5L V", price: 95900 }, { name: "RS Petrol", price: 100900 }, { name: "RS e:HEV", price: 112900 }
-            ],
-            "city-sedan": [
-                { name: "1.5L S", price: 84900 }, { name: "1.5L E", price: 89900 }, { name: "1.5L V", price: 94900 }, { name: "RS Petrol", price: 99900 }, { name: "RS e:HEV", price: 111900 }
-            ],
-            "civic": [
-                { name: "1.5L E", price: 133900 }, { name: "1.5L V", price: 144900 }, { name: "RS Petrol", price: 149900 }, { name: "RS e:HEV", price: 167900 }
-            ],
-            "wrv": [
-                { name: "1.5L S", price: 89900 }, { name: "1.5L E", price: 95900 }, { name: "1.5L V", price: 99900 }, { name: "RS Petrol", price: 107900 }
-            ],
-            "hrv": [
-                { name: "1.5L S", price: 115900 }, { name: "1.5T E", price: 130900 }, { name: "1.5T V", price: 135900 }, { name: "RS e:HEV", price: 141900 }
-            ],
-            "crv": [
-                { name: "1.5L S", price: 159900 }, { name: "1.5L E", price: 169900 }, { name: "1.5L V AWD", price: 181900 }, { name: "RS e:HEV", price: 195900 }
-            ]
-        };
-
-        const calcModel = document.getElementById('calc-model');
-        const calcVariant = document.getElementById('calc-variant');
-        const btnDepo10 = document.getElementById('btn-depo-10');
-        const btnFullLoan = document.getElementById('btn-full-loan');
-
-        const displayMonthly = document.getElementById('calc-monthly');
-        const displayOtr = document.getElementById('calc-otr');
-        const displayDepo = document.getElementById('calc-depo');
-        const displayLoan = document.getElementById('calc-loan');
-
-        let isFullLoan = false;
-        const interestRate = 2.7 / 100; // Standard 2.7% flat rate
-        const loanYears = 9;
-        const loanMonths = loanYears * 12;
-
-        // Populate Variants
-        calcModel.addEventListener('change', function() {
-            const variants = pricingData[this.value];
-            calcVariant.innerHTML = '<option value="" disabled selected>Pilih spesifikasi...</option>';
-            if(variants) {
-                variants.forEach((v, index) => {
-                    calcVariant.innerHTML += `<option value="${index}">${v.name} (RM ${v.price.toLocaleString()})</option>`;
-                });
-                calcVariant.disabled = false;
-                calcVariant.classList.remove('bg-gray-50');
-            }
-            resetCalcDisplay();
-        });
-
-        // Calculate on Variant Change
-        calcVariant.addEventListener('change', calculateLoan);
-
-        // Toggle Buttons
-        btnDepo10.addEventListener('click', () => {
-            isFullLoan = false;
-            btnDepo10.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
-            btnDepo10.classList.remove('text-gray-500');
-            btnFullLoan.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
-            btnFullLoan.classList.add('text-gray-500');
-            if(calcVariant.value) calculateLoan();
-        });
-
-        btnFullLoan.addEventListener('click', () => {
-            isFullLoan = true;
-            btnFullLoan.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
-            btnFullLoan.classList.remove('text-gray-500');
-            btnDepo10.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
-            btnDepo10.classList.add('text-gray-500');
-            if(calcVariant.value) calculateLoan();
-        });
-
-        function calculateLoan() {
-            const modelKey = calcModel.value;
-            const variantIndex = calcVariant.value;
-            if(!modelKey || variantIndex === "") return;
-
-            const price = pricingData[modelKey][variantIndex].price;
-            
-            // Math Logic
-            const deposit = isFullLoan ? 0 : Math.round(price * 0.10);
-            const loanAmount = price - deposit;
-            const totalInterest = loanAmount * interestRate * loanYears;
-            const totalPayable = loanAmount + totalInterest;
-            const monthly = Math.round(totalPayable / loanMonths);
-
-            // Update DOM
-            displayOtr.textContent = `RM ${price.toLocaleString()}`;
-            displayDepo.textContent = `RM ${deposit.toLocaleString()}`;
-            displayLoan.textContent = `RM ${loanAmount.toLocaleString()}`;
-            displayMonthly.textContent = monthly.toLocaleString();
-        }
-
-        function resetCalcDisplay() {
-            displayOtr.textContent = 'RM 0';
-            displayDepo.textContent = 'RM 0';
-            displayLoan.textContent = 'RM 0';
-            displayMonthly.textContent = '0';
-        }
-
-        // ---------------------------------------------------------
-        // 3. LOAN CALCULATOR LOGIC
-        // ---------------------------------------------------------
-        const calcModel = document.getElementById('calc-model');
-        const calcSpec = document.getElementById('calc-spec');
-        
-        // Output elements
-        const outMonthly = document.getElementById('calc-monthly');
-        const outOtr = document.getElementById('calc-otr');
-        const outDp = document.getElementById('calc-dp');
-        const outLoan = document.getElementById('calc-loan');
-        
-        // State variables
-        let selectedVariantObj = null;
-        let isTenPercent = true; 
-        
-        // Buttons
-        const btn10 = document.getElementById('btn-10pct');
-        const btnFull = document.getElementById('btn-full');
-
-        // Handle Model Change
-        calcModel.addEventListener('change', (e) => {
-            const modelName = e.target.value;
-            const specs = carData[modelName].variants;
-            
-            // Reset Spec dropdown
-            calcSpec.innerHTML = '<option value="" disabled selected>Select Spec...</option>';
-            calcSpec.disabled = false;
-            
-            // Populate Specs
-            specs.forEach((spec, index) => {
-                let option = document.createElement('option');
-                option.value = index; 
-                option.textContent = spec.name;
-                calcSpec.appendChild(option);
-            });
-            
-            resetDisplay();
-        });
-
-        // Handle Spec Change
-        calcSpec.addEventListener('change', (e) => {
-            const modelName = calcModel.value;
-            const specIndex = e.target.value;
-            selectedVariantObj = carData[modelName].variants[specIndex];
-            updateCalculatorDisplay();
-        });
-
-        // Handle Toggle Buttons
-        btn10.addEventListener('click', () => {
-            isTenPercent = true;
-            btn10.classList.add('bg-white', 'shadow', 'text-gray-900');
-            btn10.classList.remove('text-gray-500');
-            btnFull.classList.remove('bg-white', 'shadow', 'text-gray-900');
-            btnFull.classList.add('text-gray-500');
-            updateCalculatorDisplay();
-        });
-
-        btnFull.addEventListener('click', () => {
-            isTenPercent = false;
-            btnFull.classList.add('bg-white', 'shadow', 'text-gray-900');
-            btnFull.classList.remove('text-gray-500');
-            btn10.classList.remove('bg-white', 'shadow', 'text-gray-900');
-            btn10.classList.add('text-gray-500');
-            updateCalculatorDisplay();
-        });
-
-        function updateCalculatorDisplay() {
-            if(!selectedVariantObj) return;
-
-            outOtr.textContent = `RM ${selectedVariantObj.otr}`;
-            
-            if(isTenPercent) {
-                outMonthly.textContent = selectedVariantObj.inst10;
-                outDp.textContent = `RM ${selectedVariantObj.dp}`;
-                outLoan.textContent = `RM ${selectedVariantObj.loan90}`;
-            } else {
-                outMonthly.textContent = selectedVariantObj.instFL;
-                outDp.textContent = `RM 0.00`;
-                outLoan.textContent = `RM ${selectedVariantObj.otr}`; 
-            }
-        }
-
-        function resetDisplay() {
-            selectedVariantObj = null;
-            outMonthly.textContent = "0";
-            outOtr.textContent = "RM 0";
-            outDp.textContent = "RM 0";
-            outLoan.textContent = "RM 0";
-        }
-
         // ---------------------------------------------------------
         // 4. COMPARISON TOOL LOGIC
         // ---------------------------------------------------------
@@ -1020,6 +840,112 @@
                         paletteModalImg.src = initData.paletteImg;
                     }
                 }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pricingData = {
+                "city-hb": [
+                    { name: "1.5L S", price: 85900 }, { name: "1.5L E", price: 90900 }, { name: "1.5L V", price: 95900 }, { name: "RS Petrol", price: 100900 }, { name: "RS e:HEV", price: 112900 }
+                ],
+                "city-sedan": [
+                    { name: "1.5L S", price: 84900 }, { name: "1.5L E", price: 89900 }, { name: "1.5L V", price: 94900 }, { name: "RS Petrol", price: 99900 }, { name: "RS e:HEV", price: 111900 }
+                ],
+                "civic": [
+                    { name: "1.5L E", price: 133900 }, { name: "1.5L V", price: 144900 }, { name: "RS Petrol", price: 149900 }, { name: "RS e:HEV", price: 167900 }
+                ],
+                "wrv": [
+                    { name: "1.5L S", price: 89900 }, { name: "1.5L E", price: 95900 }, { name: "1.5L V", price: 99900 }, { name: "RS Petrol", price: 107900 }
+                ],
+                "hrv": [
+                    { name: "1.5L S", price: 115900 }, { name: "1.5T E", price: 130900 }, { name: "1.5T V", price: 135900 }, { name: "RS e:HEV", price: 141900 }
+                ],
+                "crv": [
+                    { name: "1.5L S", price: 159900 }, { name: "1.5L E", price: 169900 }, { name: "1.5L V AWD", price: 181900 }, { name: "RS e:HEV", price: 195900 }
+                ]
+            };
+
+            const calcModel = document.getElementById('calc-model');
+            const calcVariant = document.getElementById('calc-variant');
+            const btnDepo10 = document.getElementById('btn-depo-10');
+            const btnFullLoan = document.getElementById('btn-full-loan');
+            const displayMonthly = document.getElementById('calc-monthly');
+            const displayOtr = document.getElementById('calc-otr');
+            const displayDepo = document.getElementById('calc-depo');
+            const displayLoan = document.getElementById('calc-loan');
+
+            if(!calcModel || !calcVariant) return; // Fail-safe
+
+            let isFullLoan = false;
+            const interestRate = 2.7 / 100; // 2.7% flat rate
+            const loanYears = 9;
+            const loanMonths = loanYears * 12;
+
+            calcModel.addEventListener('change', function() {
+                const variants = pricingData[this.value];
+                calcVariant.innerHTML = '<option value="" disabled selected>Pilih spesifikasi...</option>';
+                if(variants) {
+                    variants.forEach((v, index) => {
+                        calcVariant.innerHTML += `<option value="${index}">${v.name} (RM ${v.price.toLocaleString()})</option>`;
+                    });
+                    calcVariant.disabled = false;
+                    calcVariant.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                    calcVariant.classList.add('bg-white', 'cursor-pointer');
+                }
+                resetCalcDisplay();
+            });
+
+            calcVariant.addEventListener('change', calculateLoan);
+
+            btnDepo10.addEventListener('click', () => {
+                isFullLoan = false;
+                btnDepo10.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+                btnDepo10.classList.remove('text-gray-500');
+                btnFullLoan.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+                btnFullLoan.classList.add('text-gray-500');
+                calculateLoan();
+            });
+
+            btnFullLoan.addEventListener('click', () => {
+                isFullLoan = true;
+                btnFullLoan.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+                btnFullLoan.classList.remove('text-gray-500');
+                btnDepo10.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+                btnDepo10.classList.add('text-gray-500');
+                calculateLoan();
+            });
+
+            function calculateLoan() {
+                const modelKey = calcModel.value;
+                const variantIndex = calcVariant.value;
+                if(!modelKey || variantIndex === "") return;
+
+                const price = pricingData[modelKey][variantIndex].price;
+                const deposit = isFullLoan ? 0 : Math.round(price * 0.10);
+                const loanAmount = price - deposit;
+                const totalInterest = loanAmount * interestRate * loanYears;
+                const totalPayable = loanAmount + totalInterest;
+                const monthly = Math.round(totalPayable / loanMonths);
+
+                displayOtr.textContent = `RM ${price.toLocaleString()}`;
+                displayDepo.textContent = `RM ${deposit.toLocaleString()}`;
+                displayLoan.textContent = `RM ${loanAmount.toLocaleString()}`;
+                
+                // Animation effect for monthly
+                displayMonthly.style.opacity = 0;
+                setTimeout(() => {
+                    displayMonthly.textContent = monthly.toLocaleString();
+                    displayMonthly.style.opacity = 1;
+                }, 150);
+            }
+
+            function resetCalcDisplay() {
+                displayOtr.textContent = 'RM 0';
+                displayDepo.textContent = 'RM 0';
+                displayLoan.textContent = 'RM 0';
+                displayMonthly.textContent = '0';
             }
         });
     </script>
