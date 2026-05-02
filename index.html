@@ -452,6 +452,7 @@
         // ---------------------------------------------------------
         // 5. CALCULATOR TO WHATSAPP REDIRECT
         // ---------------------------------------------------------
+<script>
 document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // 1. VISUALIZER LOGIC
@@ -492,7 +493,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (paletteModalImg) paletteModalImg.src = data.paletteImg;
     }
 
-    if (btnSeeColours && paletteModal) {
+    function hideModal() {
+        if (paletteModal) {
+            paletteModal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => paletteModal.classList.add('hidden'), 300);
+        }
+    }
+
+    if (btnSeeColours && paletteModal && closeModalBtn) {
         btnSeeColours.addEventListener('click', () => {
             paletteModal.classList.remove('hidden');
             setTimeout(() => {
@@ -501,11 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         closeModalBtn.addEventListener('click', hideModal);
         paletteModal.addEventListener('click', (e) => { if (e.target === paletteModal) hideModal(); });
-    }
-
-    function hideModal() {
-        paletteModal.classList.add('opacity-0', 'pointer-events-none');
-        setTimeout(() => paletteModal.classList.add('hidden'), 300);
     }
 
     modelTabs.forEach((tab) => {
@@ -583,10 +586,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateLoan() {
         if(!calcModel || !calcVariant || !calcModel.value || calcVariant.value === "") {
-            document.getElementById('calc-otr').textContent = 'RM 0';
-            document.getElementById('calc-depo').textContent = 'RM 0';
-            document.getElementById('calc-loan').textContent = 'RM 0';
-            document.getElementById('calc-monthly').textContent = '0';
+            const ot = document.getElementById('calc-otr');
+            const dp = document.getElementById('calc-depo');
+            const ln = document.getElementById('calc-loan');
+            const mn = document.getElementById('calc-monthly');
+            if(ot) ot.textContent = 'RM 0';
+            if(dp) dp.textContent = 'RM 0';
+            if(ln) ln.textContent = 'RM 0';
+            if(mn) mn.textContent = '0';
             return;
         }
 
@@ -595,10 +602,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const loanAmount = price - deposit;
         const monthly = Math.round((loanAmount + (loanAmount * 0.027 * 9)) / 108);
 
-        document.getElementById('calc-otr').textContent = `RM ${price.toLocaleString()}`;
-        document.getElementById('calc-depo').textContent = `RM ${deposit.toLocaleString()}`;
-        document.getElementById('calc-loan').textContent = `RM ${loanAmount.toLocaleString()}`;
-        document.getElementById('calc-monthly').textContent = monthly.toLocaleString();
+        const ot = document.getElementById('calc-otr');
+        const dp = document.getElementById('calc-depo');
+        const ln = document.getElementById('calc-loan');
+        const mn = document.getElementById('calc-monthly');
+        
+        if(ot) ot.textContent = `RM ${price.toLocaleString()}`;
+        if(dp) dp.textContent = `RM ${deposit.toLocaleString()}`;
+        if(ln) ln.textContent = `RM ${loanAmount.toLocaleString()}`;
+        if(mn) mn.textContent = monthly.toLocaleString();
     }
 
     // =========================================
@@ -616,13 +628,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCompareCol(colId, modelKey) {
         const data = carData[modelKey];
         if(!data) return;
-        document.getElementById(`comp-empty-${colId}`).classList.add('hidden');
-        document.getElementById(`comp-result-${colId}`).classList.remove('hidden');
-        document.getElementById(`comp-result-${colId}`).classList.add('flex');
-        document.getElementById(`comp-img-${colId}`).src = data.image;
-        document.getElementById(`comp-title-${colId}`).textContent = "Honda " + modelKey.split('-').join(' ').toUpperCase();
-        document.getElementById(`comp-price-${colId}`).textContent = data.price;
-        document.getElementById(`comp-engine-${colId}`).textContent = data.engineBase;
+        const emptyEl = document.getElementById(`comp-empty-${colId}`);
+        const resultEl = document.getElementById(`comp-result-${colId}`);
+        if(emptyEl) emptyEl.classList.add('hidden');
+        if(resultEl) {
+            resultEl.classList.remove('hidden');
+            resultEl.classList.add('flex');
+        }
+        const imgEl = document.getElementById(`comp-img-${colId}`);
+        if(imgEl) imgEl.src = data.image;
+        const titleEl = document.getElementById(`comp-title-${colId}`);
+        if(titleEl) titleEl.textContent = "Honda " + modelKey.split('-').join(' ').toUpperCase();
+        const priceEl = document.getElementById(`comp-price-${colId}`);
+        if(priceEl) priceEl.textContent = data.price;
+        const engineEl = document.getElementById(`comp-engine-${colId}`);
+        if(engineEl) engineEl.textContent = data.engineBase;
     }
 
     const compModelA = document.getElementById('comp-model-a');
@@ -662,6 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+</script>
 </script>
 
 </body>
