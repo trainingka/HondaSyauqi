@@ -154,7 +154,6 @@
 
     <section id="showcase" class="py-24 bg-white relative">
         <div class="max-w-6xl mx-auto px-4 relative flex flex-col items-center">
-            
             <div class="absolute top-0 left-4 md:left-10 bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3 flex items-center gap-3 z-20">
                 <div class="bg-green-100 text-green-600 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold">✓</div>
                 <div class="text-left">
@@ -163,16 +162,19 @@
                 </div>
             </div>
 
-            <div class="relative w-full flex justify-center items-center min-h-[300px] md:min-h-[450px] mt-10 md:mt-0">
-                
+            <div class="relative w-full flex flex-col justify-center items-center min-h-[300px] md:min-h-[450px] mt-10 md:mt-0">
                 <img id="car-display-img" src="" class="w-full max-w-[800px] object-contain transition-opacity duration-300 ease-in-out opacity-100 drop-shadow-2xl z-10" alt="Honda Car">
 
-                <div class="absolute right-0 md:right-10 flex flex-col gap-3 bg-white/90 backdrop-blur-md p-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 z-20" id="color-dots-container">
+                <div class="absolute right-0 md:right-10 flex flex-col gap-3 bg-white/90 backdrop-blur-md p-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 z-20 transition-all duration-300" id="color-dots-container">
                 </div>
             </div>
 
-            <div class="w-full max-w-[850px] flex justify-end px-4 md:px-14 mb-8 -mt-4 z-20 relative">
-                <span id="car-color-name" class="text-xs md:text-sm font-bold text-gray-500 bg-white/80 px-2 py-1 rounded"></span>
+            <div class="w-full max-w-[850px] flex flex-col md:flex-row justify-end items-center md:items-end px-4 md:px-14 mb-8 -mt-4 z-20 relative gap-4">
+                <span id="car-color-name" class="text-xs md:text-sm font-bold text-gray-500 bg-white/80 px-2 py-1 rounded hidden"></span>
+                
+                <button id="btn-see-colours" class="hidden bg-gray-900 hover:bg-honda text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-palette"></i> See All Colours
+                </button>
             </div>
 
             <div class="flex gap-2 bg-white p-1.5 rounded-full shadow-[0_4px_20px_rgb(0,0,0,0.08)] border border-gray-100 w-full max-w-4xl justify-start md:justify-center z-20 relative overflow-x-auto mx-auto">
@@ -183,7 +185,13 @@
                 <button class="model-tab-btn px-6 py-3.5 rounded-full font-bold text-gray-500 hover:text-gray-900 transition-all whitespace-nowrap" data-target="CR-V">CR-V</button>
                 <button class="model-tab-btn px-6 py-3.5 rounded-full font-bold text-gray-500 hover:text-gray-900 transition-all whitespace-nowrap" data-target="WR-V">WR-V</button>
             </div>
-            
+        </div>
+
+        <div id="palette-modal" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="bg-white rounded-2xl p-2 md:p-4 max-w-5xl w-full relative shadow-2xl transform scale-95 transition-transform duration-300" id="palette-modal-content">
+                <button id="close-modal" class="absolute -top-4 -right-4 md:top-4 md:right-4 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow-lg hover:bg-red-700 z-10">&times;</button>
+                <img id="palette-modal-img" src="" class="w-full h-auto rounded-xl object-contain" alt="All Colours Palette">
+            </div>
         </div>
     </section>
 
@@ -781,19 +789,11 @@
             // Data Configuration for Interactive Visualizer
             const visualizerData = {
                 "City": {
-                    colors: [
-                        { name: "Platinum White Pearl", hex: "#f4f4f4", img: "image/Car/CIty.png" },
-                        { name: "Meteoroid Gray Metallic", hex: "#53565b", img: "image/Car/CIty.png" },
-                        { name: "Ignite Red Metallic", hex: "#9e1b22", img: "image/Car/CIty.png" },
-                        { name: "Lunar Silver Metallic", hex: "#a6a9aa", img: "image/Car/CIty.png" },
-                        { name: "Crystal Black Pearl", hex: "#111111", img: "image/Car/CIty.png" }
-                    ]
+                    isStatic: true, 
+                    mainImg: "image/Car/CIty.png", 
+                    paletteImg: "image/Car/CityAllModel.png"
                 },
-                "City Hatchback": {
-                    colors: [
-                        { name: "Placeholder Color", hex: "#f4f4f4", img: "image/Car/CityHatchback.png" }
-                    ]
-                },
+                "City Hatchback": { colors: [{ name: "Placeholder", hex: "#f4f4f4", img: "image/Car/CityHatchback.png" }] },
                 "Civic": {
                     colors: [
                         { name: "Canyon River Blue Metallic", hex: "#2b3e51", img: "image/Car/Civic.png" },
@@ -803,90 +803,95 @@
                         { name: "Ignite Red Metallic", hex: "#9b111e", img: "image/Car/Civic.png" }
                     ]
                 },
-                "HR-V": {
-                    colors: [
-                        { name: "Ignite Red Metallic", hex: "#9e1b22", img: "image/Car/hrv.png" }, 
-                        { name: "Platinum White Pearl", hex: "#f4f4f4", img: "image/Car/hrv.png" } 
-                    ]
-                },
-                "CR-V": {
-                    colors: [
-                        { name: "Platinum White Pearl", hex: "#f4f4f4", img: "image/Car/crv.png" }, 
-                        { name: "Canyon River Blue", hex: "#1a3449", img: "image/Car/crv.png" } 
-                    ]
-                },
-                "WR-V": {
-                    colors: [
-                        { name: "Placeholder Color", hex: "#9e1b22", img: "image/Car/wrv.png" }
-                    ]
-                }
+                "HR-V": { colors: [{ name: "Ignite Red Metallic", hex: "#9e1b22", img: "image/Car/hrv.png" }] },
+                "CR-V": { colors: [{ name: "Platinum White Pearl", hex: "#f4f4f4", img: "image/Car/crv.png" }] },
+                "WR-V": { colors: [{ name: "Placeholder", hex: "#9e1b22", img: "image/Car/wrv.png" }] }
             };
 
             const displayImg = document.getElementById('car-display-img');
             const dotsContainer = document.getElementById('color-dots-container');
             const colorNameLabel = document.getElementById('car-color-name');
+            const btnSeeColours = document.getElementById('btn-see-colours');
             const modelTabs = document.querySelectorAll('.model-tab-btn');
+            const paletteModal = document.getElementById('palette-modal');
+            const paletteModalImg = document.getElementById('palette-modal-img');
+            const paletteModalContent = document.getElementById('palette-modal-content');
+            const closeModalBtn = document.getElementById('close-modal');
 
             function loadVisualizerModel(modelKey) {
                 const data = visualizerData[modelKey];
-                if (!data || !displayImg || !dotsContainer) return;
+                if (!data || !displayImg) return;
 
-                // Preload images for smooth transitions
-                data.colors.forEach(c => { const img = new Image(); img.src = c.img; });
-
-                // Clear existing dots
-                dotsContainer.innerHTML = '';
-
-                // Create new dots
-                data.colors.forEach((color, index) => {
-                    const dotBtn = document.createElement('button');
+                if (data.isStatic) {
+                    // Show Static Mode UI
+                    dotsContainer.classList.add('hidden');
+                    colorNameLabel.classList.add('hidden');
+                    btnSeeColours.classList.remove('hidden');
                     
-                    // Base styling for dots
-                    dotBtn.className = 'w-6 h-6 md:w-7 md:h-7 rounded-full border-[3px] transition-all duration-200 focus:outline-none';
-                    dotBtn.style.backgroundColor = color.hex;
-                    
-                    // Active state styling logic
-                    if (index === 0) {
-                        dotBtn.classList.add('border-gray-800', 'scale-110');
-                    } else {
-                        dotBtn.classList.add('border-transparent');
-                        if (color.hex === "#f4f4f4") dotBtn.classList.add('shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]'); // Light border for white dot
-                    }
+                    displayImg.style.opacity = '0';
+                    setTimeout(() => {
+                        displayImg.src = data.mainImg;
+                        displayImg.style.opacity = '1';
+                    }, 200);
 
-                    // Click Event for Color Change
-                    dotBtn.addEventListener('click', () => {
-                        // Reset all dots
-                        Array.from(dotsContainer.children).forEach(d => {
-                            d.classList.remove('border-gray-800', 'scale-110');
-                            d.classList.add('border-transparent');
-                        });
+                    paletteModalImg.src = data.paletteImg;
+                } else {
+                    // Show Interactive Mode UI
+                    dotsContainer.classList.remove('hidden');
+                    colorNameLabel.classList.remove('hidden');
+                    btnSeeColours.classList.add('hidden');
+                    
+                    dotsContainer.innerHTML = '';
+                    data.colors.forEach((color, index) => {
+                        const dotBtn = document.createElement('button');
+                        dotBtn.className = 'w-6 h-6 md:w-7 md:h-7 rounded-full border-[3px] transition-all duration-200 focus:outline-none';
+                        dotBtn.style.backgroundColor = color.hex;
                         
-                        // Set active dot
-                        dotBtn.classList.remove('border-transparent');
-                        dotBtn.classList.add('border-gray-800', 'scale-110');
-
-                        // Fade effect for image
-                        displayImg.style.opacity = '0';
-                        setTimeout(() => {
-                            displayImg.src = color.img;
-                            displayImg.style.opacity = '1';
-                        }, 200); // 200ms matches the transition-opacity class
-
-                        // Update label
-                        if (colorNameLabel) {
-                            colorNameLabel.textContent = color.name;
+                        if (index === 0) { dotBtn.classList.add('border-gray-800', 'scale-110'); } 
+                        else {
+                            dotBtn.classList.add('border-transparent');
+                            if (color.hex === "#f4f4f4") dotBtn.classList.add('shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]');
                         }
+
+                        dotBtn.addEventListener('click', () => {
+                            Array.from(dotsContainer.children).forEach(d => {
+                                d.classList.remove('border-gray-800', 'scale-110');
+                                d.classList.add('border-transparent');
+                            });
+                            dotBtn.classList.remove('border-transparent');
+                            dotBtn.classList.add('border-gray-800', 'scale-110');
+
+                            displayImg.style.opacity = '0';
+                            setTimeout(() => { displayImg.src = color.img; displayImg.style.opacity = '1'; }, 200);
+                            colorNameLabel.textContent = color.name;
+                        });
+                        dotsContainer.appendChild(dotBtn);
                     });
 
-                    dotsContainer.appendChild(dotBtn);
-                });
-
-                // Set initial state for the selected model
-                displayImg.src = data.colors[0].img;
-                if (colorNameLabel) {
+                    displayImg.src = data.colors[0].img;
                     colorNameLabel.textContent = data.colors[0].name;
                 }
             }
+
+            // Modal Controls
+            btnSeeColours.addEventListener('click', () => {
+                paletteModal.classList.remove('hidden');
+                setTimeout(() => {
+                    paletteModal.classList.remove('opacity-0', 'pointer-events-none');
+                    paletteModalContent.classList.remove('scale-95');
+                }, 10);
+            });
+
+            function hideModal() {
+                paletteModal.classList.add('opacity-0', 'pointer-events-none');
+                paletteModalContent.classList.add('scale-95');
+                setTimeout(() => { paletteModal.classList.add('hidden'); }, 300);
+            }
+
+            closeModalBtn.addEventListener('click', hideModal);
+            paletteModal.addEventListener('click', (e) => {
+                if (e.target === paletteModal) hideModal();
+            });
 
             // Tab Click Events
             modelTabs.forEach(tab => {
