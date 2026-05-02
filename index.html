@@ -162,8 +162,10 @@
                 </div>
             </div>
 
-            <div class="relative w-full flex flex-col justify-center items-center min-h-[300px] md:min-h-[450px] mt-10 md:mt-0">
-                <img id="car-display-img" src="" class="w-full max-w-[800px] object-contain transition-opacity duration-300 ease-in-out opacity-100 drop-shadow-2xl z-10" alt="Honda Car">
+            <div class="relative w-full flex flex-col justify-center items-center min-h-[300px] md:min-h-[450px] mt-10 md:mt-0 overflow-hidden">
+                <div id="car-slider" class="w-full transition-transform duration-500 ease-in-out flex">
+                    <img id="car-display-img" src="" class="w-full max-w-[800px] object-contain drop-shadow-2xl z-10 flex-shrink-0" alt="Honda Car">
+                </div>
 
                 <div class="absolute right-0 md:right-10 flex flex-col gap-3 bg-white/90 backdrop-blur-md p-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 z-20 transition-all duration-300" id="color-dots-container">
                 </div>
@@ -821,6 +823,7 @@
             };
 
             const displayImg = document.getElementById('car-display-img');
+            const carSlider = document.getElementById('car-slider');
             const dotsContainer = document.getElementById('color-dots-container');
             const colorNameLabel = document.getElementById('car-color-name');
             const btnSeeColours = document.getElementById('btn-see-colours');
@@ -829,60 +832,77 @@
             const paletteModalImg = document.getElementById('palette-modal-img');
             const paletteModalContent = document.getElementById('palette-modal-content');
             const closeModalBtn = document.getElementById('close-modal');
+            let isAnimating = false;
 
-            function loadVisualizerModel(modelKey) {
+            function loadVisualizerModel(modelKey, direction = 'left') {
                 const data = visualizerData[modelKey];
-                if (!data || !displayImg) return;
+                if (!data || !displayImg || isAnimating) return;
+                isAnimating = true;
 
-                if (data.isStatic) {
-                    // Show Static Mode UI
-                    dotsContainer.classList.add('hidden');
-                    colorNameLabel.classList.add('hidden');
-                    btnSeeColours.classList.remove('hidden');
-                    
-                    displayImg.style.opacity = '0';
-                    setTimeout(() => {
-                        displayImg.src = data.mainImg;
-                        displayImg.style.opacity = '1';
-                    }, 200);
+                // Slide out current image
+                carSlider.style.transform = direction === 'left' ? 'translateX(-100%)' : 'translateX(100%)';
+                carSlider.style.opacity = '0';
 
-                    paletteModalImg.src = data.paletteImg;
-                } else {
-                    // Show Interactive Mode UI
-                    dotsContainer.classList.remove('hidden');
-                    colorNameLabel.classList.remove('hidden');
-                    btnSeeColours.classList.add('hidden');
-                    
-                    dotsContainer.innerHTML = '';
-                    data.colors.forEach((color, index) => {
-                        const dotBtn = document.createElement('button');
-                        dotBtn.className = 'w-6 h-6 md:w-7 md:h-7 rounded-full border-[3px] transition-all duration-200 focus:outline-none';
-                        dotBtn.style.backgroundColor = color.hex;
+                setTimeout(() => {
+                    if (data.isStatic) {
+                        // Show Static Mode UI
+                        dotsContainer.classList.add('hidden');
+                        colorNameLabel.classList.add('hidden');
+                        btnSeeColours.classList.remove('hidden');
                         
-                        if (index === 0) { dotBtn.classList.add('border-gray-800', 'scale-110'); } 
-                        else {
-                            dotBtn.classList.add('border-transparent');
-                            if (color.hex === "#f4f4f4") dotBtn.classList.add('shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]');
-                        }
+                        displayImg.src = data.mainImg;
+                        paletteModalImg.src = data.paletteImg;
+                    } else {
+                        // Show Interactive Mode UI
+                        dotsContainer.classList.remove('hidden');
+                        colorNameLabel.classList.remove('hidden');
+                        btnSeeColours.classList.add('hidden');
+                        
+                        dotsContainer.innerHTML = '';
+                        data.colors.forEach((color, index) => {
+                            const dotBtn = document.createElement('button');
+                            dotBtn.className = 'w-6 h-6 md:w-7 md:h-7 rounded-full border-[3px] transition-all duration-200 focus:outline-none';
+                            dotBtn.style.backgroundColor = color.hex;
+                            
+                            if (index === 0) { dotBtn.classList.add('border-gray-800', 'scale-110'); } 
+                            else {
+                                dotBtn.classList.add('border-transparent');
+                                if (color.hex === "#f4f4f4") dotBtn.classList.add('shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]');
+                            }
 
-                        dotBtn.addEventListener('click', () => {
-                            Array.from(dotsContainer.children).forEach(d => {
-                                d.classList.remove('border-gray-800', 'scale-110');
-                                d.classList.add('border-transparent');
+                            dotBtn.addEventListener('click', () => {
+                                Array.from(dotsContainer.children).forEach(d => {
+                                    d.classList.remove('border-gray-800', 'scale-110');
+                                    d.classList.add('border-transparent');
+                                });
+                                dotBtn.classList.remove('border-transparent');
+                                dotBtn.classList.add('border-gray-800', 'scale-110');
+
+                                displayImg.style.opacity = '0';
+                                setTimeout(() => { displayImg.src = color.img; displayImg.style.opacity = '1'; }, 200);
+                                colorNameLabel.textContent = color.name;
                             });
-                            dotBtn.classList.remove('border-transparent');
-                            dotBtn.classList.add('border-gray-800', 'scale-110');
-
-                            displayImg.style.opacity = '0';
-                            setTimeout(() => { displayImg.src = color.img; displayImg.style.opacity = '1'; }, 200);
-                            colorNameLabel.textContent = color.name;
+                            dotsContainer.appendChild(dotBtn);
                         });
-                        dotsContainer.appendChild(dotBtn);
-                    });
 
-                    displayImg.src = data.colors[0].img;
-                    colorNameLabel.textContent = data.colors[0].name;
-                }
+                        displayImg.src = data.colors[0].img;
+                        colorNameLabel.textContent = data.colors[0].name;
+                    }
+
+                    // Reset position for slide in
+                    carSlider.style.transform = direction === 'left' ? 'translateX(100%)' : 'translateX(-100%)';
+                    carSlider.style.opacity = '0';
+
+                    // Force reflow
+                    carSlider.offsetHeight;
+
+                    // Slide in new image
+                    setTimeout(() => {
+                        carSlider.style.transform = 'translateX(0)';
+                        carSlider.style.opacity = '1';
+                        isAnimating = false;
+                    }, 50);
+                }, 500);
             }
 
             // Modal Controls
@@ -905,8 +925,11 @@
                 if (e.target === paletteModal) hideModal();
             });
 
-            // Tab Click Events
-            modelTabs.forEach(tab => {
+            // Tab Click Events with direction tracking
+            let currentTabIndex = 0;
+            const modelKeys = ["City", "City Hatchback", "Civic", "HR-V", "CR-V", "WR-V"];
+            
+            modelTabs.forEach((tab, index) => {
                 tab.addEventListener('click', (e) => {
                     // Reset tab styling
                     modelTabs.forEach(t => {
@@ -919,8 +942,12 @@
                     btn.classList.remove('text-gray-500', 'hover:text-gray-900');
                     btn.classList.add('bg-gray-900', 'text-white', 'shadow-md');
                     
-                    // Load the selected model
-                    loadVisualizerModel(btn.getAttribute('data-target'));
+                    // Determine swipe direction
+                    const direction = index > currentTabIndex ? 'left' : 'right';
+                    currentTabIndex = index;
+                    
+                    // Load the selected model with direction
+                    loadVisualizerModel(btn.getAttribute('data-target'), direction);
                 });
             });
 
