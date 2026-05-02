@@ -452,27 +452,30 @@
         // ---------------------------------------------------------
         // 5. CALCULATOR TO WHATSAPP REDIRECT
         // ---------------------------------------------------------
-        document.getElementById('btn-get-quote').addEventListener('click', () => {
-            if (!selectedVariantObj) {
-                let messageBox = document.createElement('div');
-                messageBox.className = "fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transition";
-                messageBox.innerHTML = "<i class='fa-solid fa-circle-exclamation mr-2'></i> Sila pilih model dan spesifikasi Honda dahulu.";
-                document.body.appendChild(messageBox);
-                setTimeout(() => messageBox.remove(), 3000);
-                return;
-            }
+        const btnGetQuote = document.getElementById('btn-get-quote');
+        if (btnGetQuote) {
+            btnGetQuote.addEventListener('click', () => {
+                if (!selectedVariantObj) {
+                    let messageBox = document.createElement('div');
+                    messageBox.className = "fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transition";
+                    messageBox.innerHTML = "<i class='fa-solid fa-circle-exclamation mr-2'></i> Sila pilih model dan spesifikasi Honda dahulu.";
+                    document.body.appendChild(messageBox);
+                    setTimeout(() => messageBox.remove(), 3000);
+                    return;
+                }
 
-            const modelName = calcModel.options[calcModel.selectedIndex].text;
-            const specName = calcSpec.options[calcSpec.selectedIndex].text;
-            const loanTypeStr = isTenPercent ? "Deposit 10%" : "Full Loan (0% D/P)";
-            const monthlyStr = document.getElementById('calc-monthly').textContent;
-            const dpStr = document.getElementById('calc-dp').textContent;
+                const modelName = calcModel.options[calcModel.selectedIndex].text;
+                const specName = calcSpec.options[calcSpec.selectedIndex].text;
+                const loanTypeStr = isTenPercent ? "Deposit 10%" : "Full Loan (0% D/P)";
+                const monthlyStr = document.getElementById('calc-monthly').textContent;
+                const dpStr = document.getElementById('calc-dp').textContent;
 
-            const message = `Salam Syauqi, saya tengok kalkulator di website anda dan nak minta sebut harga (quotation) untuk:\n\n*Model:* ${modelName}\n*Spec:* ${specName}\n*Jenis Loan:* ${loanTypeStr}\n*Deposit:* ${dpStr}\n*Anggaran Bulanan:* RM ${monthlyStr}\n\nBoleh bantu semakkan kelayakan saya?`;
-            
-            const waUrl = `https://wa.me/601123760114?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank');
-        });
+                const message = `Salam Syauqi, saya tengok kalkulator di website anda dan nak minta sebut harga (quotation) untuk:\n\n*Model:* ${modelName}\n*Spec:* ${specName}\n*Jenis Loan:* ${loanTypeStr}\n*Deposit:* ${dpStr}\n*Anggaran Bulanan:* RM ${monthlyStr}\n\nBoleh bantu semakkan kelayakan saya?`;
+
+                const waUrl = `https://wa.me/601123760114?text=${encodeURIComponent(message)}`;
+                window.open(waUrl, '_blank');
+            });
+        }
 
         // ---------------------------------------------------------
         // 6. FORM SUBMISSION TO WHATSAPP
