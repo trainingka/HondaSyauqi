@@ -452,460 +452,218 @@
         // ---------------------------------------------------------
         // 5. CALCULATOR TO WHATSAPP REDIRECT
         // ---------------------------------------------------------
-        const btnGetQuote = document.getElementById('btn-get-quote');
-        if (btnGetQuote) {
-            btnGetQuote.addEventListener('click', () => {
-                if (!selectedVariantObj) {
-                    let messageBox = document.createElement('div');
-                    messageBox.className = "fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transition";
-                    messageBox.innerHTML = "<i class='fa-solid fa-circle-exclamation mr-2'></i> Sila pilih model dan spesifikasi Honda dahulu.";
-                    document.body.appendChild(messageBox);
-                    setTimeout(() => messageBox.remove(), 3000);
-                    return;
-                }
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // =========================================
+    // 1. VISUALIZER LOGIC
+    // =========================================
+    const visualizerData = {
+        "City": { isStatic: true, mainImg: "image/Car/Cityy.png", paletteImg: "image/Car/CityAllModel.png" },
+        "City Hatchback": { isStatic: true, mainImg: "image/Car/CityHatchbackk.png", paletteImg: "image/Car/CityHatchbackAllModel.png" },
+        "Civic": { isStatic: true, mainImg: "image/Car/Civicc.png", paletteImg: "image/Car/CivicAllModel.png" },
+        "HR-V": { isStatic: true, mainImg: "image/Car/hrvv.png", paletteImg: "image/Car/HrvAllModel.png" },
+        "CR-V": { isStatic: true, mainImg: "image/Car/crvv.png", paletteImg: "image/Car/CrvAllModel.png" },
+        "WR-V": { isStatic: true, mainImg: "image/Car/wrvvv.png", paletteImg: "image/Car/wrvallmodel.png" }
+    };
 
-                const modelName = calcModel.options[calcModel.selectedIndex].text;
-                const specName = calcSpec.options[calcSpec.selectedIndex].text;
-                const loanTypeStr = isTenPercent ? "Deposit 10%" : "Full Loan (0% D/P)";
-                const monthlyStr = document.getElementById('calc-monthly').textContent;
-                const dpStr = document.getElementById('calc-dp').textContent;
+    const carSlider = document.getElementById('car-slider');
+    const dotsContainer = document.getElementById('color-dots-container');
+    const colorNameLabel = document.getElementById('car-color-name');
+    const btnSeeColours = document.getElementById('btn-see-colours');
+    const modelTabs = document.querySelectorAll('.model-tab-btn');
+    const paletteModal = document.getElementById('palette-modal');
+    const paletteModalImg = document.getElementById('palette-modal-img');
+    const closeModalBtn = document.getElementById('close-modal');
+    let currentImg = null;
 
-                const message = `Salam Syauqi, saya tengok kalkulator di website anda dan nak minta sebut harga (quotation) untuk:\n\n*Model:* ${modelName}\n*Spec:* ${specName}\n*Jenis Loan:* ${loanTypeStr}\n*Deposit:* ${dpStr}\n*Anggaran Bulanan:* RM ${monthlyStr}\n\nBoleh bantu semakkan kelayakan saya?`;
+    function loadVisualizerModel(modelKey) {
+        const data = visualizerData[modelKey];
+        if (!data || !carSlider) return;
+        
+        carSlider.innerHTML = ''; // Clear previous
+        const newImg = document.createElement('img');
+        newImg.src = data.mainImg;
+        newImg.className = 'absolute inset-0 w-full h-full object-contain drop-shadow-2xl';
+        carSlider.appendChild(newImg);
+        currentImg = newImg;
 
-                const waUrl = `https://wa.me/601123760114?text=${encodeURIComponent(message)}`;
-                window.open(waUrl, '_blank');
-            });
-        }
+        if (dotsContainer) dotsContainer.classList.add('hidden');
+        if (colorNameLabel) colorNameLabel.classList.add('hidden');
+        if (btnSeeColours) btnSeeColours.classList.remove('hidden');
+        if (paletteModalImg) paletteModalImg.src = data.paletteImg;
+    }
 
-        // ---------------------------------------------------------
-        // 6. FORM SUBMISSION TO WHATSAPP
-        // ---------------------------------------------------------
-        document.getElementById('lead-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('form-name').value;
-            const phone = document.getElementById('form-phone').value;
-            const model = document.getElementById('form-model').value;
-            const msg = document.getElementById('form-message').value;
-
-            let waText = `Salam Syauqi, saya berminat nak tahu lebih lanjut pasal kereta Honda. Ni detail saya:\n\n*Nama:* ${name}\n*No Tel:* ${phone}\n*Model Minat:* ${model}`;
-            
-            if (msg.trim() !== "") {
-                waText += `\n*Mesej/Pertanyaan:* ${msg}`;
-            }
-
-            const waUrl = `https://wa.me/601123760114?text=${encodeURIComponent(waText)}`;
-            window.open(waUrl, '_blank');
-
-            let messageBox = document.createElement('div');
-            messageBox.className = "fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transition";
-            messageBox.innerHTML = "<i class='fa-solid fa-check-circle mr-2'></i> Terima kasih! Syauqi akan hubungi anda sekejap lagi.";
-            document.body.appendChild(messageBox);
-            
+    if (btnSeeColours && paletteModal) {
+        btnSeeColours.addEventListener('click', () => {
+            paletteModal.classList.remove('hidden');
             setTimeout(() => {
-                messageBox.remove();
-                this.reset();
-            }, 3000);
+                paletteModal.classList.remove('opacity-0', 'pointer-events-none');
+            }, 10);
         });
+        closeModalBtn.addEventListener('click', hideModal);
+        paletteModal.addEventListener('click', (e) => { if (e.target === paletteModal) hideModal(); });
+    }
 
-        // ---------------------------------------------------------
-        // 7. SMOOTH SCROLLING FIX FOR NAV TABS
-        // ---------------------------------------------------------
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault(); 
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return; 
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.scrollY - headerHeight;
-  
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                    
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
+    function hideModal() {
+        paletteModal.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => paletteModal.classList.add('hidden'), 300);
+    }
+
+    modelTabs.forEach((tab) => {
+        tab.addEventListener('click', (e) => {
+            modelTabs.forEach(t => {
+                t.classList.remove('bg-gray-900', 'text-white', 'shadow-md');
+                t.classList.add('text-gray-500', 'hover:text-gray-900');
             });
+            const btn = e.currentTarget;
+            btn.classList.remove('text-gray-500', 'hover:text-gray-900');
+            btn.classList.add('bg-gray-900', 'text-white', 'shadow-md');
+            loadVisualizerModel(btn.getAttribute('data-target'));
         });
+    });
 
-        // ---------------------------------------------------------
-        // 8. LANGUAGE TOGGLE (Preserve existing)
-        // ---------------------------------------------------------
-        const translations = {
-            ms: {
-                nav_home: "Utama",
-                nav_calculator: "Kalkulator",
-                nav_about: "Tentang Saya",
-                nav_compare: "Banding Model",
-                whatsapp_btn: "WhatsApp Sekarang",
-                hero_badge: "Penasihat Jualan Honda Sah",
-                hero_greeting: "Hai, saya",
-                hero_title: "Penasihat Jualan Honda Anda yang Dipercayai",
-                hero_desc: "Dapatkan tawaran terbaik Honda dengan kelulusan pantas, proses mudah dan sokongan penuh dari A hingga Z."
-            },
-            en: {
-                nav_home: "Home",
-                nav_calculator: "Calculator",
-                nav_about: "About Me",
-                nav_compare: "Compare Models",
-                whatsapp_btn: "WhatsApp Now",
-                hero_badge: "Certified Honda Sales Advisor",
-                hero_greeting: "Hi, I'm",
-                hero_title: "Your Trusted Honda Sales Advisor",
-                hero_desc: "Get the best Honda deals with fast approval, easy process and full support from A to Z."
-            }
-        };
+    if (modelTabs.length > 0) loadVisualizerModel("City");
 
-        let currentLang = localStorage.getItem("lang") || "ms";
+    // =========================================
+    // 2. CALCULATOR LOGIC
+    // =========================================
+    const pricingData = {
+        "city-hb": [{ name: "1.5L S", price: 85900 }, { name: "1.5L E", price: 90900 }, { name: "1.5L V", price: 95900 }, { name: "RS Petrol", price: 100900 }, { name: "RS e:HEV", price: 112900 }],
+        "city-sedan": [{ name: "1.5L S", price: 84900 }, { name: "1.5L E", price: 89900 }, { name: "1.5L V", price: 94900 }, { name: "RS Petrol", price: 99900 }, { name: "RS e:HEV", price: 111900 }],
+        "civic": [{ name: "1.5L E", price: 133900 }, { name: "1.5L V", price: 144900 }, { name: "RS Petrol", price: 149900 }, { name: "RS e:HEV", price: 167900 }],
+        "wrv": [{ name: "1.5L S", price: 89900 }, { name: "1.5L E", price: 95900 }, { name: "1.5L V", price: 99900 }, { name: "RS Petrol", price: 107900 }],
+        "hrv": [{ name: "1.5L S", price: 115900 }, { name: "1.5T E", price: 130900 }, { name: "1.5T V", price: 135900 }, { name: "RS e:HEV", price: 141900 }],
+        "crv": [{ name: "1.5L S", price: 159900 }, { name: "1.5L E", price: 169900 }, { name: "1.5L V AWD", price: 181900 }, { name: "RS e:HEV", price: 195900 }]
+    };
 
-        function toggleLang() {
-            currentLang = currentLang === "ms" ? "en" : "ms";
-            localStorage.setItem("lang", currentLang);
-            updateContent();
-        }
+    const calcModel = document.getElementById('calc-model');
+    const calcVariant = document.getElementById('calc-variant');
+    const btnDepo10 = document.getElementById('btn-depo-10');
+    const btnFullLoan = document.getElementById('btn-full-loan');
+    let isFullLoan = false;
 
-        function updateContent() {
-            const langLabel = document.getElementById("lang-label");
-            if (langLabel) {
-                langLabel.textContent = currentLang.toUpperCase();
-            }
-            document.documentElement.lang = currentLang;
+    if (calcModel && calcVariant) {
+        calcModel.addEventListener('change', (e) => {
+            const selectedModel = e.target.value;
+            const variants = pricingData[selectedModel];
+            calcVariant.innerHTML = '<option value="" disabled selected>Pilih spesifikasi...</option>';
             
-            if (typeof translations !== 'undefined' && translations[currentLang]) {
-                document.querySelectorAll("[data-i18n]").forEach(el => {
-                    const key = el.getAttribute("data-i18n");
-                    if (key && translations[currentLang][key]) {
-                        el.textContent = translations[currentLang][key];
-                    }
+            if(variants) {
+                variants.forEach((v, index) => {
+                    calcVariant.innerHTML += `<option value="${index}">${v.name} (RM ${v.price.toLocaleString()})</option>`;
                 });
+                calcVariant.disabled = false;
+                calcVariant.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                calcVariant.classList.add('bg-white', 'cursor-pointer');
             }
-        }
-
-         updateContent();
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Data Configuration for Interactive Visualizer
-            const visualizerData = {
-                "City": {
-                    isStatic: true, 
-                    mainImg: "image/Car/Cityy.png", 
-                    paletteImg: "image/Car/CityAllModel.png"
-                },
-                "City Hatchback": {
-                    isStatic: true, 
-                    mainImg: "image/Car/CityHatchbackk.png", 
-                    paletteImg: "image/Car/CityHatchbackAllModel.png"
-                },
-                "Civic": {
-                    isStatic: true, 
-                    mainImg: "image/Car/Civicc.png", 
-                    paletteImg: "image/Car/CivicAllModel.png"
-                },
-                "HR-V": {
-                    isStatic: true, 
-                    mainImg: "image/Car/hrvv.png", 
-                    paletteImg: "image/Car/HrvAllModel.png"
-                },
-                "CR-V": {
-                    isStatic: true, 
-                    mainImg: "image/Car/crvv.png", 
-                    paletteImg: "image/Car/CrvAllModel.png"
-                },
-                "WR-V": {
-                    isStatic: true, 
-                    mainImg: "image/Car/wrvvv.png", 
-                    paletteImg: "image/Car/wrvallmodel.png"
-                }
-            };
-
-            const carSlider = document.getElementById('car-slider');
-            const dotsContainer = document.getElementById('color-dots-container');
-            const colorNameLabel = document.getElementById('car-color-name');
-            const btnSeeColours = document.getElementById('btn-see-colours');
-            const modelTabs = document.querySelectorAll('.model-tab-btn');
-            const paletteModal = document.getElementById('palette-modal');
-            const paletteModalImg = document.getElementById('palette-modal-img');
-            const paletteModalContent = document.getElementById('palette-modal-content');
-            const closeModalBtn = document.getElementById('close-modal');
-            let isAnimating = false;
-            let currentImg = null;
-
-            function loadVisualizerModel(modelKey, direction = 'left') {
-                const data = visualizerData[modelKey];
-                if (!data || isAnimating) return;
-                isAnimating = true;
-
-                const newSrc = data.isStatic ? data.mainImg : data.colors[0].img;
-
-                // Create new image element
-                const newImg = document.createElement('img');
-                newImg.src = newSrc;
-                newImg.className = 'absolute inset-0 w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 ease-in-out';
-                newImg.alt = 'Honda Car';
-
-                // Calculate slide positions
-                const slideOut = direction === 'left' ? '-translate-x-full' : 'translate-x-full';
-                const slideInFrom = direction === 'left' ? 'translate-x-full' : '-translate-x-full';
-
-                // Position new image off-screen
-                newImg.classList.add(slideInFrom.split(' ')[0]); // Add initial position class
-                carSlider.appendChild(newImg);
-
-                // Force reflow
-                void newImg.offsetWidth;
-
-                // If there's a current image, slide it out
-                if (currentImg) {
-                    currentImg.classList.add(slideOut);
-                    currentImg.style.zIndex = '0';
-                }
-
-                // Slide new image in
-                newImg.classList.remove(slideInFrom.split(' ')[0]);
-                newImg.style.zIndex = '10';
-
-                // After animation completes
-                setTimeout(() => {
-                    // Remove old image if exists
-                    if (currentImg && currentImg.parentNode) {
-                        currentImg.parentNode.removeChild(currentImg);
-                    }
-                    
-                    // Set new image as current
-                    currentImg = newImg;
-                    currentImg.id = 'car-display-img';
-
-                    // Update UI based on model type
-                    if (data.isStatic) {
-                        dotsContainer.classList.add('hidden');
-                        colorNameLabel.classList.add('hidden');
-                        btnSeeColours.classList.remove('hidden');
-                        paletteModalImg.src = data.paletteImg;
-                    } else {
-                        dotsContainer.classList.remove('hidden');
-                        colorNameLabel.classList.remove('hidden');
-                        btnSeeColours.classList.add('hidden');
-                        
-                        dotsContainer.innerHTML = '';
-                        data.colors.forEach((color, index) => {
-                            const dotBtn = document.createElement('button');
-                            dotBtn.className = 'w-6 h-6 md:w-7 md:h-7 rounded-full border-[3px] transition-all duration-200 focus:outline-none';
-                            dotBtn.style.backgroundColor = color.hex;
-                            
-                            if (index === 0) { dotBtn.classList.add('border-gray-800', 'scale-110'); } 
-                            else {
-                                dotBtn.classList.add('border-transparent');
-                                if (color.hex === "#f4f4f4") dotBtn.classList.add('shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]');
-                            }
-
-                            dotBtn.addEventListener('click', () => {
-                                Array.from(dotsContainer.children).forEach(d => {
-                                    d.classList.remove('border-gray-800', 'scale-110');
-                                    d.classList.add('border-transparent');
-                                });
-                                dotBtn.classList.remove('border-transparent');
-                                dotBtn.classList.add('border-gray-800', 'scale-110');
-
-                                currentImg.style.opacity = '0';
-                                setTimeout(() => { currentImg.src = color.img; currentImg.style.opacity = '1'; }, 200);
-                                colorNameLabel.textContent = color.name;
-                            });
-                            dotsContainer.appendChild(dotBtn);
-                        });
-
-                        colorNameLabel.textContent = data.colors[0].name;
-                    }
-
-                    isAnimating = false;
-                }, 500);
-            }
-
-            // Modal Controls
-            btnSeeColours.addEventListener('click', () => {
-                paletteModal.classList.remove('hidden');
-                setTimeout(() => {
-                    paletteModal.classList.remove('opacity-0', 'pointer-events-none');
-                    paletteModalContent.classList.remove('scale-95');
-                }, 10);
-            });
-
-            function hideModal() {
-                paletteModal.classList.add('opacity-0', 'pointer-events-none');
-                paletteModalContent.classList.add('scale-95');
-                setTimeout(() => { paletteModal.classList.add('hidden'); }, 300);
-            }
-
-            closeModalBtn.addEventListener('click', hideModal);
-            paletteModal.addEventListener('click', (e) => {
-                if (e.target === paletteModal) hideModal();
-            });
-
-            // Tab Click Events with direction tracking
-            let currentTabIndex = 0;
-            const modelKeys = ["City", "City Hatchback", "Civic", "HR-V", "CR-V", "WR-V"];
-            
-            modelTabs.forEach((tab, index) => {
-                tab.addEventListener('click', (e) => {
-                    // Reset tab styling
-                    modelTabs.forEach(t => {
-                        t.classList.remove('bg-gray-900', 'text-white', 'shadow-md');
-                        t.classList.add('text-gray-500', 'hover:text-gray-900');
-                    });
-                    
-                    // Set active tab styling
-                    const btn = e.currentTarget;
-                    btn.classList.remove('text-gray-500', 'hover:text-gray-900');
-                    btn.classList.add('bg-gray-900', 'text-white', 'shadow-md');
-                    
-                    // Determine swipe direction
-                    const direction = index > currentTabIndex ? 'left' : 'right';
-                    currentTabIndex = index;
-                    
-                    // Load the selected model with direction
-                    loadVisualizerModel(btn.getAttribute('data-target'), direction);
-                });
-            });
-
-            // Initialize the visualizer with the first model (City)
-            if (modelTabs.length > 0) {
-                const initData = visualizerData["City"];
-                if (initData) {
-                    const initImg = document.createElement('img');
-                    initImg.id = 'car-display-img';
-                    initImg.src = initData.mainImg;
-                    initImg.className = 'absolute inset-0 w-full h-full object-contain drop-shadow-2xl';
-                    initImg.alt = 'honda Car';
-                    carSlider.appendChild(initImg);
-                    currentImg = initImg;
-                    
-                    // Set initial UI state for City
-                    if (initData.isStatic) {
-                        dotsContainer.classList.add('hidden');
-                        colorNameLabel.classList.add('hidden');
-                        btnSeeColours.classList.remove('hidden');
-                        paletteModalImg.src = initData.paletteImg;
-                    }
-                }
-            }
+            calculateLoan();
         });
-    </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const pricingData = {
-                "city-hb": [
-                    { name: "1.5L S", price: 85900 }, { name: "1.5L E", price: 90900 }, { name: "1.5L V", price: 95900 }, { name: "RS Petrol", price: 100900 }, { name: "RS e:HEV", price: 112900 }
-                ],
-                "city-sedan": [
-                    { name: "1.5L S", price: 84900 }, { name: "1.5L E", price: 89900 }, { name: "1.5L V", price: 94900 }, { name: "RS Petrol", price: 99900 }, { name: "RS e:HEV", price: 111900 }
-                ],
-                "civic": [
-                    { name: "1.5L E", price: 133900 }, { name: "1.5L V", price: 144900 }, { name: "RS Petrol", price: 149900 }, { name: "RS e:HEV", price: 167900 }
-                ],
-                "wrv": [
-                    { name: "1.5L S", price: 89900 }, { name: "1.5L E", price: 95900 }, { name: "1.5L V", price: 99900 }, { name: "RS Petrol", price: 107900 }
-                ],
-                "hrv": [
-                    { name: "1.5L S", price: 115900 }, { name: "1.5T E", price: 130900 }, { name: "1.5T V", price: 135900 }, { name: "RS e:HEV", price: 141900 }
-                ],
-                "crv": [
-                    { name: "1.5L S", price: 159900 }, { name: "1.5L E", price: 169900 }, { name: "1.5L V AWD", price: 181900 }, { name: "RS e:HEV", price: 195900 }
-                ]
-            };
+        calcVariant.addEventListener('change', calculateLoan);
 
-            const calcModel = document.getElementById('calc-model');
-            const calcVariant = document.getElementById('calc-variant');
-            const btnDepo10 = document.getElementById('btn-depo-10');
-            const btnFullLoan = document.getElementById('btn-full-loan');
-            const displayMonthly = document.getElementById('calc-monthly');
-            const displayOtr = document.getElementById('calc-otr');
-            const displayDepo = document.getElementById('calc-depo');
-            const displayLoan = document.getElementById('calc-loan');
-
-            if(!calcModel || !calcVariant) return; // Fail-safe
-
-            let isFullLoan = false;
-            const interestRate = 2.7 / 100; // 2.7% flat rate
-            const loanYears = 9;
-            const loanMonths = loanYears * 12;
-
-            calcModel.addEventListener('change', function() {
-                const variants = pricingData[this.value];
-                calcVariant.innerHTML = '<option value="" disabled selected>Pilih spesifikasi...</option>';
-                if(variants) {
-                    variants.forEach((v, index) => {
-                        calcVariant.innerHTML += `<option value="${index}">${v.name} (RM ${v.price.toLocaleString()})</option>`;
-                    });
-                    calcVariant.disabled = false;
-                    calcVariant.classList.remove('bg-gray-100', 'cursor-not-allowed');
-                    calcVariant.classList.add('bg-white', 'cursor-pointer');
-                }
-                resetCalcDisplay();
-            });
-
-            calcVariant.addEventListener('change', calculateLoan);
-
+        if(btnDepo10 && btnFullLoan) {
             btnDepo10.addEventListener('click', () => {
                 isFullLoan = false;
-                btnDepo10.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+                btnDepo10.classList.add('bg-white', 'text-gray-900', 'shadow-sm');
                 btnDepo10.classList.remove('text-gray-500');
-                btnFullLoan.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+                btnFullLoan.classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
                 btnFullLoan.classList.add('text-gray-500');
                 calculateLoan();
             });
 
             btnFullLoan.addEventListener('click', () => {
                 isFullLoan = true;
-                btnFullLoan.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+                btnFullLoan.classList.add('bg-white', 'text-gray-900', 'shadow-sm');
                 btnFullLoan.classList.remove('text-gray-500');
-                btnDepo10.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+                btnDepo10.classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
                 btnDepo10.classList.add('text-gray-500');
                 calculateLoan();
             });
+        }
+    }
 
-            function calculateLoan() {
-                const modelKey = calcModel.value;
-                const variantIndex = calcVariant.value;
-                if(!modelKey || variantIndex === "") return;
+    function calculateLoan() {
+        if(!calcModel || !calcVariant || !calcModel.value || calcVariant.value === "") {
+            document.getElementById('calc-otr').textContent = 'RM 0';
+            document.getElementById('calc-depo').textContent = 'RM 0';
+            document.getElementById('calc-loan').textContent = 'RM 0';
+            document.getElementById('calc-monthly').textContent = '0';
+            return;
+        }
 
-                const price = pricingData[modelKey][variantIndex].price;
-                const deposit = isFullLoan ? 0 : Math.round(price * 0.10);
-                const loanAmount = price - deposit;
-                const totalInterest = loanAmount * interestRate * loanYears;
-                const totalPayable = loanAmount + totalInterest;
-                const monthly = Math.round(totalPayable / loanMonths);
+        const price = pricingData[calcModel.value][calcVariant.value].price;
+        const deposit = isFullLoan ? 0 : Math.round(price * 0.10);
+        const loanAmount = price - deposit;
+        const monthly = Math.round((loanAmount + (loanAmount * 0.027 * 9)) / 108);
 
-                displayOtr.textContent = `RM ${price.toLocaleString()}`;
-                displayDepo.textContent = `RM ${deposit.toLocaleString()}`;
-                displayLoan.textContent = `RM ${loanAmount.toLocaleString()}`;
-                
-                // Animation effect for monthly
-                displayMonthly.style.opacity = 0;
-                setTimeout(() => {
-                    displayMonthly.textContent = monthly.toLocaleString();
-                    displayMonthly.style.opacity = 1;
-                }, 150);
-            }
+        document.getElementById('calc-otr').textContent = `RM ${price.toLocaleString()}`;
+        document.getElementById('calc-depo').textContent = `RM ${deposit.toLocaleString()}`;
+        document.getElementById('calc-loan').textContent = `RM ${loanAmount.toLocaleString()}`;
+        document.getElementById('calc-monthly').textContent = monthly.toLocaleString();
+    }
 
-            function resetCalcDisplay() {
-                displayOtr.textContent = 'RM 0';
-                displayDepo.textContent = 'RM 0';
-                displayLoan.textContent = 'RM 0';
-                displayMonthly.textContent = '0';
+    // =========================================
+    // 3. COMPARE TOOL LOGIC (Fixed Data)
+    // =========================================
+    const carData = {
+        "city-hb": { image: "image/Car/CityHatchbackk.png", engineBase: "1.5L DOHC i-VTEC", price: "RM 85,900" },
+        "city-sedan": { image: "image/Car/Cityy.png", engineBase: "1.5L DOHC i-VTEC", price: "RM 84,900" },
+        "civic": { image: "image/Car/Civicc.png", engineBase: "1.5L VTEC Turbo", price: "RM 133,900" },
+        "hrv": { image: "image/Car/hrvv.png", engineBase: "1.5L DOHC i-VTEC", price: "RM 115,900" },
+        "crv": { image: "image/Car/crvv.png", engineBase: "1.5L VTEC Turbo", price: "RM 159,900" },
+        "wrv": { image: "image/Car/wrvvv.png", engineBase: "1.5L DOHC i-VTEC", price: "RM 89,900" }
+    };
+
+    function updateCompareCol(colId, modelKey) {
+        const data = carData[modelKey];
+        if(!data) return;
+        document.getElementById(`comp-empty-${colId}`).classList.add('hidden');
+        document.getElementById(`comp-result-${colId}`).classList.remove('hidden');
+        document.getElementById(`comp-result-${colId}`).classList.add('flex');
+        document.getElementById(`comp-img-${colId}`).src = data.image;
+        document.getElementById(`comp-title-${colId}`).textContent = "Honda " + modelKey.split('-').join(' ').toUpperCase();
+        document.getElementById(`comp-price-${colId}`).textContent = data.price;
+        document.getElementById(`comp-engine-${colId}`).textContent = data.engineBase;
+    }
+
+    const compModelA = document.getElementById('comp-model-a');
+    const compModelB = document.getElementById('comp-model-b');
+    if(compModelA) compModelA.addEventListener('change', (e) => updateCompareCol('a', e.target.value));
+    if(compModelB) compModelB.addEventListener('change', (e) => updateCompareCol('b', e.target.value));
+
+    // =========================================
+    // 4. MISC (Form, Smooth Scroll)
+    // =========================================
+    const leadForm = document.getElementById('lead-form');
+    if (leadForm) {
+        leadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const model = document.getElementById('form-model').value;
+            const msg = document.getElementById('form-message').value;
+            let waText = `Salam Syauqi, saya berminat nak tahu lebih lanjut pasal kereta Honda.\n\n*Nama:* ${name}\n*No Tel:* ${phone}\n*Model Minat:* ${model}`;
+            if (msg.trim() !== "") waText += `\n*Mesej:* ${msg}`;
+            window.open(`https://wa.me/601123760114?text=${encodeURIComponent(waText)}`, '_blank');
+            this.reset();
+        });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const offsetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
             }
         });
-    </script>
+    });
+});
+</script>
 
 </body>
 </html>
