@@ -411,48 +411,6 @@
     </a>
 
 <script>
-        // ---------------------------------------------------------
-        // 4. COMPARISON TOOL LOGIC
-        // ---------------------------------------------------------
-        const compModelA = document.getElementById('comp-model-a');
-        const compModelB = document.getElementById('comp-model-b');
-
-        const modelOptions = [
-            { key: "city-hb", name: "Honda City H/B" },
-            { key: "city-sedan", name: "Honda City Sedan" },
-            { key: "civic", name: "Honda Civic" },
-            { key: "hrv", name: "Honda HR-V" },
-            { key: "crv", name: "Honda CR-V" },
-            { key: "wrv", name: "Honda WR-V" }
-        ];
-        
-        modelOptions.forEach(model => {
-            compModelA.appendChild(new Option(model.name, model.key));
-            compModelB.appendChild(new Option(model.name, model.key));
-        });
-
-        function updateCompareCol(colId, modelName) {
-            const data = carData[modelName];
-            const baseSpec = data.variants[0]; 
-
-            document.getElementById(`comp-empty-${colId}`).classList.add('hidden');
-            const resultDiv = document.getElementById(`comp-result-${colId}`);
-            resultDiv.classList.remove('hidden');
-            resultDiv.classList.add('flex');
-
-            document.getElementById(`comp-img-${colId}`).src = data.image;
-            document.getElementById(`comp-title-${colId}`).textContent = `Honda ${modelName}`;
-            document.getElementById(`comp-price-${colId}`).textContent = baseSpec.otr;
-            document.getElementById(`comp-engine-${colId}`).textContent = data.engineBase;
-        }
-
-        compModelA.addEventListener('change', (e) => updateCompareCol('a', e.target.value));
-        compModelB.addEventListener('change', (e) => updateCompareCol('b', e.target.value));
-
-        // ---------------------------------------------------------
-        // 5. CALCULATOR TO WHATSAPP REDIRECT
-        // ---------------------------------------------------------
-<script>
 document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     // 1. VISUALIZER LOGIC
@@ -479,14 +437,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadVisualizerModel(modelKey) {
         const data = visualizerData[modelKey];
         if (!data || !carSlider) return;
-        
-        carSlider.innerHTML = ''; // Clear previous
+        carSlider.innerHTML = '';
         const newImg = document.createElement('img');
         newImg.src = data.mainImg;
         newImg.className = 'absolute inset-0 w-full h-full object-contain drop-shadow-2xl';
         carSlider.appendChild(newImg);
         currentImg = newImg;
-
         if (dotsContainer) dotsContainer.classList.add('hidden');
         if (colorNameLabel) colorNameLabel.classList.add('hidden');
         if (btnSeeColours) btnSeeColours.classList.remove('hidden');
@@ -503,9 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnSeeColours && paletteModal && closeModalBtn) {
         btnSeeColours.addEventListener('click', () => {
             paletteModal.classList.remove('hidden');
-            setTimeout(() => {
-                paletteModal.classList.remove('opacity-0', 'pointer-events-none');
-            }, 10);
+            setTimeout(() => paletteModal.classList.remove('opacity-0', 'pointer-events-none'), 10);
         });
         closeModalBtn.addEventListener('click', hideModal);
         paletteModal.addEventListener('click', (e) => { if (e.target === paletteModal) hideModal(); });
@@ -530,12 +484,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. CALCULATOR LOGIC
     // =========================================
     const pricingData = {
-        "city-hb": [{ name: "1.5L S", price: 85900 }, { name: "1.5L E", price: 90900 }, { name: "1.5L V", price: 95900 }, { name: "RS Petrol", price: 100900 }, { name: "RS e:HEV", price: 112900 }],
-        "city-sedan": [{ name: "1.5L S", price: 84900 }, { name: "1.5L E", price: 89900 }, { name: "1.5L V", price: 94900 }, { name: "RS Petrol", price: 99900 }, { name: "RS e:HEV", price: 111900 }],
-        "civic": [{ name: "1.5L E", price: 133900 }, { name: "1.5L V", price: 144900 }, { name: "RS Petrol", price: 149900 }, { name: "RS e:HEV", price: 167900 }],
-        "wrv": [{ name: "1.5L S", price: 89900 }, { name: "1.5L E", price: 95900 }, { name: "1.5L V", price: 99900 }, { name: "RS Petrol", price: 107900 }],
-        "hrv": [{ name: "1.5L S", price: 115900 }, { name: "1.5T E", price: 130900 }, { name: "1.5T V", price: 135900 }, { name: "RS e:HEV", price: 141900 }],
-        "crv": [{ name: "1.5L S", price: 159900 }, { name: "1.5L E", price: 169900 }, { name: "1.5L V AWD", price: 181900 }, { name: "RS e:HEV", price: 195900 }]
+        "city-hb": [{ name: "1.5L S", price: 85900, salary: 2500 }, { name: "1.5L E", price: 90900, salary: 2700 }, { name: "1.5L V", price: 95900, salary: 2900 }, { name: "RS Petrol", price: 100900, salary: 3100 }, { name: "RS e:HEV", price: 112900, salary: 3500 }],
+        "city-sedan": [{ name: "1.5L S", price: 84900, salary: 2500 }, { name: "1.5L E", price: 89900, salary: 2700 }, { name: "1.5L V", price: 94900, salary: 2900 }, { name: "RS Petrol", price: 99900, salary: 3100 }, { name: "RS e:HEV", price: 111900, salary: 3500 }],
+        "civic": [{ name: "1.5L E", price: 133900, salary: 4200 }, { name: "1.5L V", price: 144900, salary: 4500 }, { name: "RS Petrol", price: 149900, salary: 4700 }, { name: "RS e:HEV", price: 167900, salary: 5200 }],
+        "wrv": [{ name: "1.5L S", price: 89900, salary: 2700 }, { name: "1.5L E", price: 95900, salary: 2900 }, { name: "1.5L V", price: 99900, salary: 3100 }, { name: "RS Petrol", price: 107900, salary: 3300 }],
+        "hrv": [{ name: "1.5L S", price: 115900, salary: 3500 }, { name: "1.5T E", price: 130900, salary: 4000 }, { name: "1.5T V", price: 135900, salary: 4200 }, { name: "RS e:HEV", price: 141900, salary: 4400 }],
+        "crv": [{ name: "1.5L S", price: 159900, salary: 5000 }, { name: "1.5L E", price: 169900, salary: 5300 }, { name: "1.5L V AWD", price: 181900, salary: 5700 }, { name: "RS e:HEV", price: 195900, salary: 6200 }]
     };
 
     const calcModel = document.getElementById('calc-model');
@@ -549,7 +503,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectedModel = e.target.value;
             const variants = pricingData[selectedModel];
             calcVariant.innerHTML = '<option value="" disabled selected>Pilih spesifikasi...</option>';
-            
             if(variants) {
                 variants.forEach((v, index) => {
                     calcVariant.innerHTML += `<option value="${index}">${v.name} (RM ${v.price.toLocaleString()})</option>`;
@@ -586,18 +539,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateLoan() {
         if(!calcModel || !calcVariant || !calcModel.value || calcVariant.value === "") {
-            const ot = document.getElementById('calc-otr');
-            const dp = document.getElementById('calc-depo');
-            const ln = document.getElementById('calc-loan');
+            ['calc-otr', 'calc-depo', 'calc-loan', 'calc-salary'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.textContent = id === 'calc-monthly' ? '0' : 'RM 0';
+            });
             const mn = document.getElementById('calc-monthly');
-            if(ot) ot.textContent = 'RM 0';
-            if(dp) dp.textContent = 'RM 0';
-            if(ln) ln.textContent = 'RM 0';
             if(mn) mn.textContent = '0';
             return;
         }
 
-        const price = pricingData[calcModel.value][calcVariant.value].price;
+        const selected = pricingData[calcModel.value][calcVariant.value];
+        const price = selected.price;
         const deposit = isFullLoan ? 0 : Math.round(price * 0.10);
         const loanAmount = price - deposit;
         const monthly = Math.round((loanAmount + (loanAmount * 0.027 * 9)) / 108);
@@ -606,15 +558,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const dp = document.getElementById('calc-depo');
         const ln = document.getElementById('calc-loan');
         const mn = document.getElementById('calc-monthly');
-        
+        const sl = document.getElementById('calc-salary');
+
         if(ot) ot.textContent = `RM ${price.toLocaleString()}`;
         if(dp) dp.textContent = `RM ${deposit.toLocaleString()}`;
         if(ln) ln.textContent = `RM ${loanAmount.toLocaleString()}`;
         if(mn) mn.textContent = monthly.toLocaleString();
+        if(sl) sl.textContent = `RM ${selected.salary.toLocaleString()}`;
     }
 
     // =========================================
-    // 3. COMPARE TOOL LOGIC (Fixed Data)
+    // 3. COMPARE TOOL LOGIC
     // =========================================
     const carData = {
         "city-hb": { image: "image/Car/CityHatchbackk.png", engineBase: "1.5L DOHC i-VTEC", price: "RM 85,900" },
@@ -631,10 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const emptyEl = document.getElementById(`comp-empty-${colId}`);
         const resultEl = document.getElementById(`comp-result-${colId}`);
         if(emptyEl) emptyEl.classList.add('hidden');
-        if(resultEl) {
-            resultEl.classList.remove('hidden');
-            resultEl.classList.add('flex');
-        }
+        if(resultEl) { resultEl.classList.remove('hidden'); resultEl.classList.add('flex'); }
         const imgEl = document.getElementById(`comp-img-${colId}`);
         if(imgEl) imgEl.src = data.image;
         const titleEl = document.getElementById(`comp-title-${colId}`);
@@ -682,7 +633,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-</script>
 </script>
 
 </body>
